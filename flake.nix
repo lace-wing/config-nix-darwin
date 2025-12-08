@@ -22,12 +22,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ {
-    flake-parts,
-    nixpkgs,
-    self,
-    ...
-  }:
+  outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} (top @ {
       config,
       withSystem,
@@ -37,6 +32,7 @@
       systems = ["aarch64-darwin"];
       imports = [
         ./darwin.nix
+        ./packages.nix
       ];
     });
 }

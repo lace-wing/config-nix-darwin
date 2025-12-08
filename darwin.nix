@@ -12,6 +12,7 @@
       vim
     ];
 
+    /*
     system.activationScripts.applications.text = let
       env = pkgs.buildEnv {
         name = "system-applications";
@@ -30,6 +31,7 @@
           ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix\ Apps/$app_name"
         done
       '';
+    */
 
     nix.settings.experimental-features = "nix-command flakes";
     system.configurationRevision = self.rev or self.dirtyRev or null;
