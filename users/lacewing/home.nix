@@ -48,8 +48,11 @@ in {
     LANG = "en_US.UTF-8";
     LC_CTYPE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
+
     EDITOR = "nvim";
+    VISUAL = "nvim";
     PAGER = "less -FirSwX";
+    MANPAGER = "nvim +Man!";
 
     # OPENAI_API_KEY = "op://Private/OpenAPI_Personal/credential";
   } // (if isDarwin then {
@@ -58,7 +61,8 @@ in {
   } else {});
 
   home.file = {
-    # ".gdbinit".source = ./gdbinit;
+    ".zshrc".source = ./config/zshrc.zsh;
+    ".zprofile".source = ./config/zprofile.zsh;
   };
 
   xdg.configFile = {
