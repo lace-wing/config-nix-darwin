@@ -40,7 +40,7 @@
     # End Nix
   '';
 
-  environment.shells = with pkgs; [bashInteractive zsh];
+  environment.shells = with pkgs; [bashInteractive zsh nushell];
   environment.systemPackages = with pkgs; [
     mkalias
     vim

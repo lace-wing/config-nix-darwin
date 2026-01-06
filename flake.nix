@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -45,9 +45,9 @@
       inherit nixpkgs inputs;
     };
   in {
-    darwinConfiguration.mbp-m1 = mkSystem "mbp-m1" {
+    darwinConfigurations.mbp-m1 = mkSystem "mbp-m1" {
       system = "aarch64-darwin";
-      user = "steve";
+      user = "lacewing";
       darwin = true;
     };
   };

@@ -68,6 +68,7 @@ in
           isWSL = isWSL;
           inputs = inputs;
         };
+        home-manager.backupFileExtension = "bak";
       }
 
       # We expose some extra arguments so that our modules can parameterize
