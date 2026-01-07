@@ -100,7 +100,8 @@ in {
       la = "ls -a";
       ll = "ls -la";
 
-      rc = "$EDITOR $ZSH_CONFIG_SRC/zshrc";
+      rc = "$EDITOR $NIX_CONFIG_SRC";
+      zrc = "$EDITOR $ZSH_CONFIG_SRC/zshrc";
       trc = "$EDITOR ~/.tmux.conf";
       nrc = "$EDITOR ~/.config/nvim/init.lua";
 
