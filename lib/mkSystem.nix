@@ -3,7 +3,6 @@
 # particular architecture.
 {
   nixpkgs,
-  # overlays,
   inputs,
 }: name: {
   system,
@@ -11,10 +10,7 @@
   darwin ? false,
   wsl ? false,
 }: let
-  # True if this is a WSL system.
   isWSL = wsl;
-
-  # True if Linux, which is a heuristic for not being Darwin.
   isLinux = !darwin && !isWSL;
 
   # The config files for this system.
@@ -67,17 +63,17 @@ in
         home-manager.users.${user} = import userHMConfig {
           isWSL = isWSL;
           inputs = inputs;
+          user = user;
         };
         home-manager.backupFileExtension = "bak";
       }
 
-      # We expose some extra arguments so that our modules can parameterize
-      # better based on these values.
+      # Extra args to systemFunc
       {
         config._module.args = {
-          currentSystem = system;
-          currentSystemName = name;
-          currentSystemUser = user;
+          system = system;
+          systemName = name;
+          user = user;
           isWSL = isWSL;
           inputs = inputs;
         };

@@ -1,6 +1,7 @@
 {
   isWSL,
   inputs,
+  user,
   ...
 }: {
   config,
@@ -11,15 +12,7 @@
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
 
-  shellAliases =
-    {
-    }
-    // (
-      if isLinux
-      then {
-      }
-      else {}
-    );
+  shScripts = builtins.readFile ./sh/scripts.sh;
 in {
   home.stateVersion = "25.11";
 
@@ -55,6 +48,15 @@ in {
     ]);
 
   #---------------------------------------------------------------------
+  # Path
+  #---------------------------------------------------------------------
+
+  home.sessionPath = [
+    "$HOME/app/bin"
+    "$XDG_DATA_HOME/nvim/mason/bin"
+  ];
+
+  #---------------------------------------------------------------------
   # Env vars and dotfiles
   #---------------------------------------------------------------------
 
@@ -69,7 +71,8 @@ in {
       PAGER = "less -FirSwX";
       MANPAGER = "nvim +Man!";
 
-      # OPENAI_API_KEY = "op://Private/OpenAPI_Personal/credential";
+      NIX_CONFIG_SRC = "${config.xdg.configHome}/nix-darwin";
+      ZSH_CONFIG_SRC = "${config.home.sessionVariables.NIX_CONFIG_SRC}/users/${user}/zsh";
     }
     // (
       if isDarwin
@@ -83,18 +86,38 @@ in {
   home.file = {
   };
 
-  xdg.configFile =
+  xdg.configFile = {
+  };
+
+  #---------------------------------------------------------------------
+  # Aliases
+  #---------------------------------------------------------------------
+
+  # Unix and POSIX
+  home.shellAliases =
     {
+      l = "ls -o";
+      la = "ls -a";
+      ll = "ls -la";
+
+      rc = "$EDITOR $ZSH_CONFIG_SRC/zshrc";
+      trc = "$EDITOR ~/.tmux.conf";
+      nrc = "$EDITOR ~/.config/nvim/init.lua";
+
+      cd = "z";
+
+      v = "nvim";
     }
     // (
       if isDarwin
       then {
-      }
-      else {}
-    )
-    // (
-      if isLinux
-      then {
+        cddc = "cd ~/Documents/";
+        cddw = "cd ~/Downloads/";
+        cdds = "cd ~/Desktop/";
+        cdpc = "cd ~/Pictures/Saved\\ Pictures/";
+        cdss = "cd ~/Pictures/Screen\\ Shot/";
+        cdas = "cd ~/Library/Application\\ Support/";
+        cdic = "cd ~/Library/Mobile\\ Documents/com~apple~CloudDocs";
       }
       else {}
     );
@@ -109,15 +132,16 @@ in {
     enable = true;
     shellOptions = [];
     historyControl = ["ignoredups" "ignorespace"];
-    # initExtra = builtins.readFile ./bashrc;
-    shellAliases = shellAliases;
   };
 
   programs.zsh = {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
     initContent = builtins.readFile ./zsh/zshrc;
-    profileExtra = builtins.readFile ./zsh/zprofile;
+    profileExtra = lib.concatStringsSep "\n" [
+      (builtins.readFile ./zsh/zprofile)
+      shScripts
+    ];
   };
 
   programs.direnv = {
@@ -140,7 +164,7 @@ in {
 
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   programs.nushell = {
