@@ -147,10 +147,15 @@ in {
 
   programs.direnv = {
     enable = true;
+    nix-direnv.enable = true;
 
     config = {
       whitelist = {
-        exact = ["$HOME/.envrc"];
+        exact = ["~/.envrc"];
+        prefix = [
+          "~/src"
+          "~/srcy"
+        ];
       };
     };
   };
