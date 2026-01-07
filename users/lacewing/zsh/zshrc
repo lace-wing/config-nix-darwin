@@ -11,7 +11,7 @@ zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'external commands'
 
 # adding extra function sources
-fpath=($HOME/.config/completions/zsh.* $fpath)
+fpath=($NIX_CONFIG_SRC/mods/zsh/comp.* $fpath)
 
 # enable autocompletion for subcommands
 autoload -Uz compinit && compinit
@@ -43,10 +43,6 @@ setopt PROMPT_SUBST
 export PROMPT='%n%F{cyan}@%f%m%F{cyan}:%f%F{yellow}%3~%f %F{blue}${vcs_info_msg_0_}%f
 %# '
 export RPROMPT='%0(?..%F{red}%?%f)'
-
-precmd() {
-  echo ""
-}
 # }}}
 
 # startup visuals and commands

@@ -12,7 +12,7 @@
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
 
-  shScripts = builtins.readFile ./sh/scripts.sh;
+  shScripts = builtins.readFile ./../../mods/sh/scripts.sh;
 in {
   home.stateVersion = "25.11";
 
