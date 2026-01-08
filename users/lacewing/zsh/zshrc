@@ -10,9 +10,6 @@ export LSCOLORS="ExFxBxDxCxegedabagacad"
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'external commands'
 
-# adding extra function sources
-fpath=($NIX_CONFIG_SRC/mods/zsh/comp.* $fpath)
-
 # enable autocompletion for subcommands
 autoload -Uz compinit && compinit
 
