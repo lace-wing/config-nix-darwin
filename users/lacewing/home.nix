@@ -22,21 +22,39 @@ in {
   # Packages
   #---------------------------------------------------------------------
 
-  # Packages I always want installed. Most packages I install using
-  # per-project flakes sourced with direnv and nix-shell, so this is
-  # not a huge list.
-  home.packages =
+  home.packages = with pkgs;
     [
-      pkgs.fd
-      pkgs.fzf
-      pkgs.gh
-      pkgs.htop
-      pkgs.jq
-      pkgs.ripgrep
-      pkgs.tree
+      ### Lang ###
+      zig
+      nodejs
+      go
+      ## hm ##
+      # nu
 
-      pkgs.zig
-      pkgs.nodejs
+      ### Lib ###
+
+      ### Tool ###
+      fd
+      fzf
+      gh
+      htop
+      jq
+      ripgrep
+      tree
+      ## hm ##
+      # zoxide
+      # carapace
+      # git
+      # nvim
+      # bash
+      # zsh
+      # direnv
+      # gpg
+      # pandoc
+
+      ### GUI App ###
+      ## hm ##
+      # ghostty
     ]
     ++ (lib.optionals isDarwin [
       # This is automatically setup on Linux
@@ -87,6 +105,96 @@ in {
   };
 
   xdg.configFile = {
+    "ghostty/config".source = ./ghostty/config;
+    "ghostty/shaders/".source = ../../mods/ghostty/shaders;
+  };
+
+  #---------------------------------------------------------------------
+  # Programs
+  #---------------------------------------------------------------------
+
+  programs.gpg.enable = !isDarwin;
+
+  services.gpg-agent = {
+    enable = isLinux;
+    pinentry.package = pkgs.pinentry-tty;
+
+    # cache the keys forever so we don't get asked for a password
+    defaultCacheTtl = 31536000;
+    maxCacheTtl = 31536000;
+  };
+
+  programs.bash = {
+    enable = true;
+    shellOptions = [];
+    historyControl = ["ignoredups" "ignorespace"];
+  };
+
+  programs.zsh = {
+    enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
+    initContent = builtins.readFile ./zsh/zshrc;
+    profileExtra = lib.concatStringsSep "\n" [
+      (builtins.readFile ./zsh/zprofile)
+      shScripts
+    ];
+  };
+
+  programs.nushell = {
+    enable = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    config = {
+      whitelist = {
+        exact = ["~/.envrc"];
+        prefix = [
+          "~/src"
+          "~/srcy"
+        ];
+      };
+    };
+  };
+
+  programs.zoxide = {
+    enable = true;
+  };
+
+  programs.carapace = {
+    enable = true;
+  };
+
+  programs.git = {
+    enable = true;
+  };
+
+  programs.pandoc = {
+    enable = true;
+  };
+
+  programs.neovim = {
+    enable = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  };
+
+  programs.ghostty = {
+    enable = true;
+    # settings = xdg files
+    installVimSyntax = true;
+    package =
+      if isDarwin
+      then pkgs.ghostty-bin # nix does not support Swift 6 and XCode build env yet.
+      else pkgs.ghostty;
+  };
+
+  # Make cursor not tiny on HiDPI screens
+  home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
+    name = "Vanilla-DMZ";
+    package = pkgs.vanilla-dmz;
+    size = 128;
+    x11.enable = true;
   };
 
   #---------------------------------------------------------------------
@@ -122,75 +230,4 @@ in {
       }
       else {}
     );
-
-  #---------------------------------------------------------------------
-  # Programs
-  #---------------------------------------------------------------------
-
-  programs.gpg.enable = !isDarwin;
-
-  programs.bash = {
-    enable = true;
-    shellOptions = [];
-    historyControl = ["ignoredups" "ignorespace"];
-  };
-
-  programs.zsh = {
-    enable = true;
-    dotDir = "${config.xdg.configHome}/zsh";
-    initContent = builtins.readFile ./zsh/zshrc;
-    profileExtra = lib.concatStringsSep "\n" [
-      (builtins.readFile ./zsh/zprofile)
-      shScripts
-    ];
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-
-    config = {
-      whitelist = {
-        exact = ["~/.envrc"];
-        prefix = [
-          "~/src"
-          "~/srcy"
-        ];
-      };
-    };
-  };
-
-  programs.git = {
-    enable = true;
-  };
-
-  programs.go = {
-    enable = true;
-  };
-
-  programs.neovim = {
-    enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  };
-
-  programs.nushell = {
-    enable = true;
-  };
-
-  services.gpg-agent = {
-    enable = isLinux;
-    pinentry.package = pkgs.pinentry-tty;
-
-    # cache the keys forever so we don't get asked for a password
-    defaultCacheTtl = 31536000;
-    maxCacheTtl = 31536000;
-  };
-
-  # Make cursor not tiny on HiDPI screens
-  home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
-    name = "Vanilla-DMZ";
-    package = pkgs.vanilla-dmz;
-    size = 128;
-    x11.enable = true;
-  };
 }

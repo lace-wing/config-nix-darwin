@@ -32,15 +32,15 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   programs.zsh.enable = true;
-  programs.zsh.shellInit = ''
-    # Nix
-    if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-      . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-    fi
-    # End Nix
-  '';
+  # programs.zsh.shellInit = ''
+  #   # Nix
+  #   if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  #     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  #   fi
+  #   # End Nix
+  # '';
 
-  environment.shells = with pkgs; [bashInteractive zsh nushell];
+  environment.shells = with pkgs; [bashInteractive zsh];
   environment.systemPackages = with pkgs; [
     mkalias
     vim

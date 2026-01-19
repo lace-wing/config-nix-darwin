@@ -40,7 +40,7 @@ eval "$(zoxide init zsh)"
 # Prompt {{{
 setopt PROMPT_SUBST
 
-export PROMPT='%n%F{cyan}@%f%m%F{cyan}:%f%F{yellow}%3~%f %F{blue}${vcs_info_msg_0_}%f
+export PROMPT='%n%F{cyan}@%f%m%F{cyan}:%f%F{green}%3~%f %F{blue}${vcs_info_msg_0_}%f
 %# '
 export RPROMPT='%0(?..%F{red}%?%f)'
 # }}}

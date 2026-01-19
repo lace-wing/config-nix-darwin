@@ -1,0 +1,44 @@
+# The syntax is "key = value". The whitespace around the equals doesn't matter.
+
+keybind = global:cmd+shift+s=toggle_quick_terminal
+
+# background = 282c34
+# foreground= ffffff
+
+# Comments start with a `#` and are only valid on their own line.
+# Blank lines are ignored!
+
+# Empty values reset the configuration to the default value
+
+font-family = MonaspiceAr NF
+font-family-bold = MonaspiceNe NF
+font-family-italic = MonaspiceRn NF
+font-family-bold-italic = MonaspiceXe NF
+
+font-size = 14
+
+# neat dark
+# theme = Nvim Dark
+
+# dark dim green-earth
+# theme = Black Metal (Nile)
+# cursor-color = #777755
+
+# vibrant earthy
+theme = Arthur
+
+# hide titlebar, but it still exists
+macos-titlebar-style = hidden
+
+# remove titlebar and rounded corners
+# window-decoration = none
+
+background-opacity = 0.55
+background-blur-radius = 0
+
+# shaders
+custom-shader = shaders/cursor_smear.glsl
+custom-shader = shaders/cursor_blaze_no_trail.glsl
+# custom-shader = ../../../mods/ghostty/cursor_smear.glsl
+# custom-shader = ../../../mods/ghostty/cursor_blaze_no_trail.glsl
+
