@@ -41,6 +41,7 @@ in {
       jq
       ripgrep
       tree
+      python314Packages.jupytext
       ## hm ##
       # zoxide
       # carapace
