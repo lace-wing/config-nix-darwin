@@ -21,7 +21,7 @@
 
       ### Trackpad ###
       # Tap to click
-      "com.apple.mouse.tapBehavior" = true;
+      "com.apple.mouse.tapBehavior" = 1;
 
       ### Sound ###
       # Beep when volume changed
