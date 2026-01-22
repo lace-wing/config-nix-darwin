@@ -25,9 +25,24 @@ in {
   home.packages = with pkgs;
     [
       ### Lang ###
+      nixd
+      alejandra
+      clang-tools
+      lua-language-server
+      python314
+      pyright
+      typst
+      tinymist
+      beam28Packages.elixir
+      beam28Packages.elixir-ls
+      dotnet-sdk
+      # dotnet-sdk_8 # no pkg
+      roslyn-ls
       zig
+      zls
       nodejs
       go
+      nasmfmt
       ## hm ##
       # nu
 
@@ -41,6 +56,9 @@ in {
       jq
       ripgrep
       tree
+      exiftool
+      macism
+      imagemagick
       python314Packages.jupytext
       ## hm ##
       # zoxide
@@ -224,7 +242,7 @@ in {
         cddc = "cd ~/Documents/";
         cddw = "cd ~/Downloads/";
         cdds = "cd ~/Desktop/";
-        cdpc = "cd ~/Pictures/Saved\\ Pictures/";
+        cdpc = "cd ~/Pictures/";
         cdss = "cd ~/Pictures/Screen\\ Shot/";
         cdas = "cd ~/Library/Application\\ Support/";
         cdic = "cd ~/Library/Mobile\\ Documents/com~apple~CloudDocs";

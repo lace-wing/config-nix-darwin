@@ -1,4 +1,5 @@
-default: switch
+default: darwin
 
-switch:
+darwin:
 	sudo -i darwin-rebuild switch --show-trace --verbose --flake ~/.config/nix-darwin
+
