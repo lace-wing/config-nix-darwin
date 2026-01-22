@@ -57,13 +57,15 @@ in {
       ripgrep
       tree
       exiftool
-      macism
       imagemagick
       python314Packages.jupytext
       ## hm ##
+      # sketchybar
+      # aerospace
       # zoxide
       # carapace
       # git
+      # gh
       # nvim
       # bash
       # zsh
@@ -78,6 +80,7 @@ in {
     ++ (lib.optionals isDarwin [
       # This is automatically setup on Linux
       pkgs.gettext
+      macism
     ])
     ++ (lib.optionals (isLinux && !isWSL) [
       pkgs.clang
@@ -126,6 +129,7 @@ in {
   xdg.configFile = {
     "ghostty/config".source = ./ghostty/config;
     "ghostty/shaders/".source = ../../mods/ghostty/shaders;
+    "aerospace/".source = ./aerospace;
   };
 
   #---------------------------------------------------------------------
@@ -189,6 +193,10 @@ in {
     enable = true;
   };
 
+  programs.gh = {
+    enable = true;
+  };
+
   programs.pandoc = {
     enable = true;
   };
@@ -206,6 +214,20 @@ in {
       if isDarwin
       then pkgs.ghostty-bin # nix does not support Swift 6 and XCode build env yet.
       else pkgs.ghostty;
+  };
+
+  programs.sketchybar = {
+    enable = true;
+    config = {
+      recursive = true;
+      source = ./sketchybar;
+    };
+  };
+
+  programs.aerospace = {
+    enable = true;
+    # xdg
+    # settings = 
   };
 
   # Make cursor not tiny on HiDPI screens

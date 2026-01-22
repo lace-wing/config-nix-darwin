@@ -48,6 +48,17 @@
 
   system.startup.chime = false;
 
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-serif-static
+    noto-fonts-cjk-sans-static
+    crimson-pro
+    iosevka
+    nerd-fonts.monaspace
+    nerd-fonts.iosevka-term
+    xits-math
+  ];
+
   system.primaryUser = "lacewing";
 
   users.users.lacewing = {

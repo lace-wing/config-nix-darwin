@@ -1,0 +1,142 @@
+#!/bin/bash
+
+source "$CONFIG_DIR/colors.sh" # Loads all defined colors
+source "$CONFIG_DIR/icons.sh"  # Loads all defined icons
+
+ITEM_DIR="$CONFIG_DIR/items"     # Directory where the items are configured
+PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are stored
+
+FONT="MonaspiceAr Nerd Font" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
+PADDING=4                    # All paddings use this value (icon, label, background)
+
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event skhd_mode_change
+sketchybar --add event svim_mode_change
+
+# Setting up the general bar appearance of the bar
+bar=(
+	height=36
+	color=$BAR_COLOR
+	border_width=1
+	border_color=$BAR_BORDER_COLOR
+	shadow=off
+	position=top
+	sticky=on
+	padding_right=12
+	padding_left=12
+	y_offset=-2
+	margin=0
+	corner_radius=5
+	blur_radius=0
+	topmost=0
+	shadow=on
+)
+
+sketchybar --bar "${bar[@]}"
+
+# Setting up default values
+defaults=(
+	updates=when_shown
+	icon.font="$FONT Mono:Bold:14.0"
+	icon.color=$ICON_COLOR
+	icon.padding_left=$PADDING
+	icon.padding_right=$PADDING
+	label.font="$FONT Propo:Semibold:14.0"
+	label.color=$LABEL_COLOR
+	label.padding_left=$PADDING
+	label.padding_right=$PADDING
+	padding_right=$PADDING
+	padding_left=$PADDING
+	background.padding_right=$PADDING
+	background.padding_left=$PADDING
+	background.height=26
+	background.corner_radius=5
+	background.border_width=2
+	popup.background.border_width=1
+	popup.background.corner_radius=5
+	popup.background.border_color=$POPUP_BORDER_COLOR
+	popup.background.color=$POPUP_BACKGROUND_COLOR
+	popup.blur_radius=20
+	popup.background.shadow.drawing=on
+)
+
+sketchybar --default "${defaults[@]}"
+
+# Left
+# source "$ITEM_DIR/skhd.sh"
+# source "$ITEM_DIR/spaces.sh"
+# source "$ITEM_DIR/front_app.sh"
+
+# source "$ITEM_DIR/svim.sh"
+
+# right side of the notch
+# https://github.com/FelixKratz/SketchyBar/issues/708
+# source "$ITEM_DIR/media.sh"
+
+# Right
+# source "$ITEM_DIR/calender.sh"
+# source "$ITEM_DIR/net.sh"
+# source "$ITEM_DIR/battery.sh"
+
+# source "$ITEM_DIR/legcord.sh"
+# source "$ITEM_DIR/wechat.sh"
+# source "$ITEM_DIR/qq.sh"
+
+# groups
+
+bracket=(
+	background.color=$BACKGROUND_2
+	background.border_color=$TRANSPARENT
+)
+
+brackem() {
+	local name="$1"
+	eval "local items=(\"\${${name}[@]}\")"
+
+	for item in "${items[@]}"; do
+		source "$ITEM_DIR/$item.sh"
+	done
+
+	sketchybar --add bracket "$name" ${items[@]} \
+		--set "$name" ${bracket[@]}
+}
+
+state=(
+	skhd
+	space
+	front_app
+)
+brackem state
+
+sys=(
+	calendar
+	net
+	battery
+)
+brackem sys
+
+chat=(
+	legcord
+	qq
+	wechat
+	# whatsapp
+)
+brackem chat
+
+input=(
+	# plover
+)
+brackem input
+
+texts=(
+	words_q
+	words_e
+)
+brackem texts
+
+# Forcing all item scripts to run (never do this outside of sketchybarrc)
+sketchybar --update
+
+sketchybar --hotload on
+
+echo "sketchybar configuation loaded.."
