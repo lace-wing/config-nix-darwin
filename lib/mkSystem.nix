@@ -32,17 +32,17 @@
     if darwin
     then inputs.home-manager.darwinModules
     else inputs.home-manager.nixosModules;
+  nix-homebrew = inputs.nix-homebrew.darwinModules.nix-homebrew;
+  homebrew-core = inputs.homebrew-core;
+  homebrew-cask = inputs.homebrew-cask;
 in
   systemFunc rec {
     inherit system;
 
     modules = [
-      {system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;}
-
-      # Apply our overlays. Overlays are keyed by system type so we have
-      # to go through and apply our system type. We do this first so
-      # the overlays are available globally.
-      # { nixpkgs.overlays = overlays; }
+      {
+        system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+      }
 
       # Allow unfree packages.
       {nixpkgs.config.allowUnfree = true;}
@@ -66,6 +66,23 @@ in
           user = user;
         };
         home-manager.backupFileExtension = "bak";
+      }
+
+      nix-homebrew
+      {
+        nix-homebrew = {
+          enable = true;
+          # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+          enableRosetta = true;
+          # mutableTaps = false;
+          taps = {
+            "homebrew/homebrew-core" = homebrew-core;
+            "homebrew/homebrew-cask" = homebrew-cask;
+          };
+
+          user = user;
+          autoMigrate = true;
+        };
       }
 
       # Extra args to systemFunc

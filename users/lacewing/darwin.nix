@@ -1,8 +1,49 @@
 {
   inputs,
   pkgs,
+  user,
   ...
-}: {
+}: let
+in {
+  homebrew = {
+    brews = [
+      "skhd-zig"
+    ];
+
+    casks = [
+      "lulu"
+      "maccy"
+      "zen"
+      "zoom"
+      "legcord"
+      "whatsapp"
+      "mumble"
+      "zerotier-one"
+      "zotero"
+      "sf-symbols"
+      "intellij-idea"
+      "affinity-designer"
+      "affinity-photo"
+      "affinity-publisher"
+      "microsoft-powerpoint"
+      "microsoft-word"
+      "steam"
+    ];
+
+    taps = [
+      "homebrew/core"
+      "homebrew/cask"
+      "jackielii/tap"
+    ];
+
+    onActivation = {
+      upgrade = true;
+      cleanup = "zap";
+    };
+
+    enable = true;
+  };
+
   system.defaults = {
     universalaccess = {
       reduceMotion = true;
