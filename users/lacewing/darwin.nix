@@ -30,6 +30,11 @@ in {
       "steam"
     ];
 
+    masApps = {
+      Xcode = 497799835;
+      Amphetamine = 937984704;
+    };
+
     taps = [
       "homebrew/core"
       "homebrew/cask"
