@@ -39,6 +39,7 @@ in {
       "homebrew/core"
       "homebrew/cask"
       "jackielii/tap"
+      "LouisBrunner/valgrind"
     ];
 
     onActivation = {

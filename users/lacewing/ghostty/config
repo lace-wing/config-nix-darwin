@@ -2,20 +2,12 @@
 
 keybind = global:cmd+shift+s=toggle_quick_terminal
 
-# background = 282c34
-# foreground= ffffff
-
-# Comments start with a `#` and are only valid on their own line.
-# Blank lines are ignored!
-
-# Empty values reset the configuration to the default value
-
 font-family = MonaspiceAr NF
 font-family-bold = MonaspiceNe NF
 font-family-italic = MonaspiceRn NF
 font-family-bold-italic = MonaspiceXe NF
 
-font-size = 14
+font-size = 15
 
 # neat dark
 # theme = Nvim Dark
@@ -30,10 +22,10 @@ theme = Arthur
 # hide titlebar, but it still exists
 macos-titlebar-style = hidden
 
-# remove titlebar and rounded corners
+# remove titlebar and rounded corners # nvim buffer text shadow stays upon focus gain until focus loss
 # window-decoration = none
 
-background-opacity = 0.6
+background-opacity = 0.65
 background-blur-radius = 0
 
 # shaders
