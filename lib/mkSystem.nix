@@ -3,6 +3,7 @@
 # particular architecture.
 {
   nixpkgs,
+  overlays,
   inputs,
 }: name: {
   system,
@@ -44,7 +45,8 @@ in
         system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
       }
 
-      # Allow unfree packages.
+      {nixpkgs.overlays = overlays;}
+
       {nixpkgs.config.allowUnfree = true;}
 
       # Bring in WSL if this is a WSL build

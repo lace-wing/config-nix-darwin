@@ -2,7 +2,8 @@
   description = "A macOS config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7";
 
     darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -42,8 +43,16 @@
     ...
   }: let
     mkSystem = import ./lib/mkSystem.nix {
-      inherit nixpkgs inputs;
+      inherit nixpkgs overlays inputs;
     };
+
+    overlays = [
+      (final: prev: {
+        # swift = prev.swift.override {
+        #   stdenv = prev.gcc14Stdenv;
+        # };
+      })
+    ];
   in {
     darwinConfigurations.mbp-m1 = mkSystem "mbp-m1" {
       system = "aarch64-darwin";

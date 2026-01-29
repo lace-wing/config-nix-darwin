@@ -58,7 +58,9 @@ in {
       tree
       exiftool
       imagemagick
+      poppler-utils
       python314Packages.jupytext
+      giac
       ## hm ##
       # sketchybar
       # aerospace
@@ -93,7 +95,6 @@ in {
 
   home.sessionPath = [
     "$HOME/app/bin"
-    "$XDG_DATA_HOME/nvim/mason/bin"
   ];
 
   #---------------------------------------------------------------------
@@ -130,6 +131,7 @@ in {
     "ghostty/config".source = ./ghostty/config;
     "ghostty/shaders/".source = ../../mods/ghostty/shaders;
     "aerospace/".source = ./aerospace;
+    "skhd/".source = ./skhd;
   };
 
   #---------------------------------------------------------------------
