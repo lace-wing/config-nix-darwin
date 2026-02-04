@@ -1,0 +1,10 @@
+Kns := [];
+assign(Kns, []);
+
+Vas := [];
+Eqs := [];
+
+assign(Vas, solve(Eqs, Vas)[0]);
+
+approx(Vas);
+

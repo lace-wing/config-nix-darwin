@@ -2,8 +2,7 @@
   description = "A macOS config";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -48,9 +47,6 @@
 
     overlays = [
       (final: prev: {
-        # swift = prev.swift.override {
-        #   stdenv = prev.gcc14Stdenv;
-        # };
       })
     ];
   in {

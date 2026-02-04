@@ -13,6 +13,10 @@
   isLinux = pkgs.stdenv.isLinux;
 
   shScripts = builtins.readFile ./../../mods/sh/scripts.sh;
+  initApp = pkgs.writeShellApplication {
+    name = "init";
+    text = builtins.readFile ./../../mods/init/init.sh;
+  };
 in {
   home.stateVersion = "25.11";
 
@@ -78,6 +82,9 @@ in {
       ### GUI App ###
       ## hm ##
       # ghostty
+    ]
+    ++ [
+      initApp
     ]
     ++ (lib.optionals isDarwin [
       # This is automatically setup on Linux
@@ -229,7 +236,7 @@ in {
   programs.aerospace = {
     enable = true;
     # xdg
-    # settings = 
+    # settings =
   };
 
   # Make cursor not tiny on HiDPI screens
