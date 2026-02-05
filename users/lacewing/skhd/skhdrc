@@ -1,9 +1,13 @@
-############
-# Preamble #
-############
-
 # This config is for skhd.zig, not the original skhd.
 # It contains syntax that skhd does not recognize.
+
+.load "./aerospace.skhdrc"
+
+.define sb_wsc : sketchybar --trigger workspace_change FOCUSED_WORKSPACE={{1}}
+.define sb_wsc_as : sketchybar --trigger workspace_change FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"
+.define sb_wmmc : sketchybar --trigger wm_mode_change WM_MODE={{1}}
+
+.define browsers ["safari", "chrome", "chromium", "arc", "zen browser"]
 
 ##################
 # Generic config #
@@ -11,16 +15,14 @@
 
 .shell "/bin/zsh"
 
-.define browsers ["safari", "chrome", "chromium", "arc", "zen browser"]
-
 # default/insert mode: use as usual
-:: default : sketchybar --trigger skhd_mode_change SKHD_MODE="INS"
+:: default : @sb_wmmc("INS")
 
 # normal mode: move around
-:: normal : sketchybar --trigger skhd_mode_change SKHD_MODE="NOR"
+:: normal : @sb_wmmc("NOR")
 
 # verbatim mode: move windows
-:: verbatim : sketchybar --trigger skhd_mode_change SKHD_MODE="VER"
+:: verbatim : @sb_wmmc("VER")
 
 # from normal
 normal < i ; default
@@ -49,233 +51,6 @@ normal < shift - t : open -na /Applications/Ghostty.app
 normal < b : open -a '/Applications/Zen Browser.app'
 normal < shift - b : open -na '/Applications/Zen Browser.app'
 
-#############
-# Aerospace #
-#############
-# Available commands: https://nikitabobko.github.io/AeroSpace/commands
-
-normal < cmd - r : aerospace reload-config
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#layout
-# 0x2C - slash
-cmd - 0x2C : aerospace layout tiles accordion
-cmd + shift - space : aerospace layout tiling floating
-
-# focus window
-# See: https://nikitabobko.github.io/AeroSpace/commands#focus
-cmd - h : aerospace focus left
-cmd - j : aerospace focus down
-cmd - k : aerospace focus up
-cmd - l : aerospace focus right
-normal < h : aerospace focus left
-normal < j : aerospace focus down
-normal < k : aerospace focus up
-normal < l : aerospace focus right
-
-# move managed window
-# See: https://nikitabobko.github.io/AeroSpace/commands#move
-shift + cmd - h : aerospace move left
-shift + cmd - j : aerospace move down
-shift + cmd - k : aerospace move up
-shift + cmd - l : aerospace move right
-
-normal < cmd - h : aerospace move left
-normal < cmd - j : aerospace move down
-normal < cmd - k : aerospace move up
-normal < cmd - l : aerospace move right
-normal < cmd + shift - h : aerospace join-with left
-normal < cmd + shift - j : aerospace join-with down
-normal < cmd + shift - k : aerospace join-with up
-normal < cmd + shift - l : aerospace join-with right
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#resize
-# 0x1B - minus
-normal < 0x1B : aerospace resize smart -50
-# 0x18 - equal
-normal < 0x18 : aerospace resize smart +50
-# reset layout
-normal < r : aerospace flatten-workspace-tree
-
-# maximize and fullscreen
-cmd + shift - f : aerospace fullscreen
-cmd + ctrl - f : aerospace macos-native-fullscreen
-normal < f : aerospace fullscreen
-normal < shift - f : aerospace macos-native-fullscreen
-
-normal < x : aerospace close
-normal < shift - x : aerospace close-all-windows-but-current
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-default, normal, verbatim < cmd - tab : aerospace workspace-back-and-forth
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-# alt - b : aerospace workspace prev --wrap-around
-# alt - n : aerospace workspace next --wrap-around
-cmd - 1 : aerospace workspace 1
-cmd - 2 : aerospace workspace 2
-cmd - 3 : aerospace workspace 3
-cmd - 4 : aerospace workspace 4
-cmd - 5 : aerospace workspace 5
-cmd - 6 : aerospace workspace 6
-cmd - 7 : aerospace workspace 7
-cmd - 8 : aerospace workspace 8
-cmd - 9 : aerospace workspace 9
-
-normal < 1 : aerospace workspace 1
-normal < 2 : aerospace workspace 2
-normal < 3 : aerospace workspace 3
-normal < 4 : aerospace workspace 4
-normal < 5 : aerospace workspace 5
-normal < 6 : aerospace workspace 6
-normal < 7 : aerospace workspace 7
-normal < 8 : aerospace workspace 8
-normal < 9 : aerospace workspace 9
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-shift + cmd - 1 : aerospace move-node-to-workspace 1 && aerospace workspace 1
-shift + cmd - 2 : aerospace move-node-to-workspace 2 && aerospace workspace 2
-shift + cmd - 3 : aerospace move-node-to-workspace 3 && aerospace workspace 3
-shift + cmd - 4 : aerospace move-node-to-workspace 4 && aerospace workspace 4
-shift + cmd - 5 : aerospace move-node-to-workspace 5 && aerospace workspace 5
-shift + cmd - 6 : aerospace move-node-to-workspace 6 && aerospace workspace 6
-shift + cmd - 7 : aerospace move-node-to-workspace 7 && aerospace workspace 7
-shift + cmd - 8 : aerospace move-node-to-workspace 8 && aerospace workspace 8
-shift + cmd - 9 : aerospace move-node-to-workspace 9 && aerospace workspace 9
-
-normal < cmd - 1 : aerospace move-node-to-workspace 1 && aerospace workspace 1
-normal < cmd - 2 : aerospace move-node-to-workspace 2 && aerospace workspace 2
-normal < cmd - 3 : aerospace move-node-to-workspace 3 && aerospace workspace 3
-normal < cmd - 4 : aerospace move-node-to-workspace 4 && aerospace workspace 4
-normal < cmd - 5 : aerospace move-node-to-workspace 5 && aerospace workspace 5
-normal < cmd - 6 : aerospace move-node-to-workspace 6 && aerospace workspace 6
-normal < cmd - 7 : aerospace move-node-to-workspace 7 && aerospace workspace 7
-normal < cmd - 8 : aerospace move-node-to-workspace 8 && aerospace workspace 8
-normal < cmd - 9 : aerospace move-node-to-workspace 9 && aerospace workspace 9
-
-# monitor
-# 0x21 - [
-# 0x1E - ]
-# 0x2B - ,
-# 0x2F - .
-# doesn't seem to work
-normal < left : aerospace focus-monitor --wrap-around left
-normal < down : aerospace focus-monitor --wrap-around down
-normal < up : aerospace focus-monitor --wrap-around up
-normal < right : aerospace focus-monitor --wrap-around right
-
-normal < cmd - left : aerospace move-node-to-monitor --wrap-around left
-normal < cmd - down : aerospace move-node-to-monitor --wrap-around down
-normal < cmd - up : aerospace move-node-to-monitor --wrap-around up
-normal < cmd - right : aerospace move-node-to-monitor --wrap-around right
-
-normal < shift + cmd - left : aerospace move-workspace-to-monitor --wrap-around left
-normal < shift + cmd - down : aerospace move-workspace-to-monitor --wrap-around down
-normal < shift + cmd - up : aerospace move-workspace-to-monitor --wrap-around up
-normal < shift + cmd - right : aerospace move-workspace-to-monitor --wrap-around right
-
-
-# ################
-# # Yabai config #
-# ################
-#
-# # default to config
-# default < alt - v ; verbatim
-#
-# # verbatim to default
-# verbatim < escape ; default
-#
-# # restart service, which reloads config
-# shift + alt - r : yabai --restart-service
-#
-# # focus window
-# alt - h : yabai -m window --focus west
-# alt - j : yabai -m window --focus south
-# alt - k : yabai -m window --focus north
-# alt - l : yabai -m window --focus east
-#
-# # swap managed window
-# shift + alt - h : yabai -m window --swap west
-# shift + alt - j : yabai -m window --swap south
-# shift + alt - k : yabai -m window --swap north
-# shift + alt - l : yabai -m window --swap east
-#
-# # move managed window
-# shift + cmd - h : yabai -m window --warp west
-# shift + cmd - j : yabai -m window --warp south
-# shift + cmd - k : yabai -m window --warp north
-# shift + cmd - l : yabai -m window --warp east
-#
-# # balance size of windows
-# shift + alt - 0 : yabai -m space --balance
-#
-# # make floating window fill screen
-# shift + alt - f     : yabai -m window --grid 1:1:0:0:1:1
-#
-# # make floating window fill left-half of screen
-# # shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
-#
-# # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
-# # shift + cmd - n : yabai -m space --create && \
-# #                   index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
-# #                   yabai -m window --space "${index}" && \
-# #                   yabai -m space --focus "${index}"
-#
-# # fast focus desktop
-# # alt - tab : yabai -m space --focus recent
-# # alt - 1 : yabai -m space --focus 1
-# # alt - 2 : yabai -m space --focus 2
-# # alt - 3 : yabai -m space --focus 3
-# # alt - 4 : yabai -m space --focus 4
-# # alt - 5 : yabai -m space --focus 5
-#
-# # send window to desktop and follow focus
-# # shift + alt - n : yabai -m window --space next; yabai -m space --focus next
-# # shift + alt - b : yabai -m window --space prev; yabai -m space --focus prev
-# # shift alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
-# # shift alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
-# # shift alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
-# # shift alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
-# # shift alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
-#
-# # focus monitor
-# # ctrl + alt - z  : yabai -m display --focus prev
-# # ctrl + alt - 3  : yabai -m display --focus 3
-#
-# # send window to monitor and follow focus
-# # ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
-# # ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
-#
-# # move floating window
-# # shift + ctrl - h : yabai -m window --move rel:-20:0
-# # shift + ctrl - j : yabai -m window --move rel:0:20
-# # shift + ctrl - k : yabai -m window --move rel:0:-20
-# # shift + ctrl - l : yabai -m window --move rel:20:0
-#
-# # increase window size
-# verbatim < alt - h : yabai -m window --resize right:20:0
-# verbatim < alt - j : yabai -m window --resize bottom:0:20
-#
-# # decrease window size
-# verbatim < alt - k : yabai -m window --resize bottom:0:-20
-# verbatim < alt - l : yabai -m window --resize right:-20:0
-#
-# # set insertion point in focused container
-# # ctrl + alt - h : yabai -m window --insert west
-#
-# # toggle window zoom
-# alt - d : yabai -m window --toggle zoom-parent
-# alt - f : yabai -m window --toggle zoom-fullscreen
-#
-# # toggle window split type
-# alt - s : yabai -m window --toggle split
-#
-# # float / unfloat window and center on screen
-# shift + alt - space : yabai -m window --toggle float --grid 4:4:1:1:2:2
-#
-# # toggle sticky(+float), picture-in-picture
-# shift + alt - p : yabai -m window --toggle sticky --toggle pip
-#
-#
 # # ################################################################ #
 # # THE FOLLOWING IS AN EXPLANATION OF THE GRAMMAR THAT SKHD PARSES. #
 # # FOR SIMPLE EXAMPLE MAPPINGS LOOK FURTHER DOWN THIS FILE..        #

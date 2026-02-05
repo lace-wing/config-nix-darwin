@@ -9,8 +9,8 @@ PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are st
 FONT="MonaspiceAr Nerd Font" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 PADDING=4                    # All paddings use this value (icon, label, background)
 
-sketchybar --add event aerospace_workspace_change
-sketchybar --add event skhd_mode_change
+sketchybar --add event workspace_change
+sketchybar --add event wm_mode_change
 sketchybar --add event svim_mode_change
 
 # Setting up the general bar appearance of the bar
@@ -63,7 +63,7 @@ defaults=(
 sketchybar --default "${defaults[@]}"
 
 # Left
-# source "$ITEM_DIR/skhd.sh"
+# source "$ITEM_DIR/wm_mode.sh"
 # source "$ITEM_DIR/spaces.sh"
 # source "$ITEM_DIR/front_app.sh"
 
@@ -102,7 +102,7 @@ brackem() {
 }
 
 state=(
-	skhd
+	wm_mode
 	space
 	front_app
 )
@@ -117,9 +117,7 @@ brackem sys
 
 chat=(
 	legcord
-	qq
 	wechat
-	# whatsapp
 )
 brackem chat
 

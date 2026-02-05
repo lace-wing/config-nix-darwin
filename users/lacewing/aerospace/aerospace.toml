@@ -1,17 +1,6 @@
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
 
 start-at-login = true
-after-login-command = []
-
-# sketchy bar integration
-after-startup-command = [
-    'exec-and-forget /opt/homebrew/opt/sketchybar/bin/sketchybar',
-]
-
-# Notify Sketchybar about workspace change
-exec-on-workspace-change = ['/bin/bash', '-c',
-    '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE'
-]
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true

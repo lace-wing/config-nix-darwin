@@ -6,7 +6,6 @@ SPACE=(
 	icon.color=$WHITE
 	icon.width=30
 	background.drawing=off
-	# label.drawing=off
   icon.drawing=off
 	script="$PLUGIN_DIR/space.sh"
 )
@@ -29,8 +28,5 @@ SPACE=(
 
 sketchybar --add item space left \
 	--set space ${SPACE[@]} \
-	--subscribe space aerospace_workspace_change
+	--subscribe space workspace_change
 
-# sketchybar --add item space.prev left \
-# 	--set space.prev ${SPACE[@]} icon.color=$GREY \
-# 	--subscribe space.prev aerospace_workspace_change

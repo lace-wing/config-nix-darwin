@@ -1,0 +1,127 @@
+#############
+# Aerospace #
+#############
+# Available commands: https://nikitabobko.github.io/AeroSpace/commands
+
+.define as_ws : aerospace workspace {{1}} && sketchybar --trigger workspace_change FOCUSED_WORKSPACE={{1}}
+.define as_mn_ws : aerospace move-node-to-workspace {{1}} && aerospace workspace {{1}} && sketchybar --trigger workspace_change FOCUSED_WORKSPACE={{1}}
+
+normal < cmd - r : aerospace reload-config && osascript -e 'display notification "Config reloaded" with title "Aerospace"'
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#layout
+# 0x2C - slash
+cmd - 0x2C : aerospace layout tiles accordion
+cmd + shift - space : aerospace layout tiling floating
+
+# focus window
+# See: https://nikitabobko.github.io/AeroSpace/commands#focus
+cmd - h : aerospace focus left
+cmd - j : aerospace focus down
+cmd - k : aerospace focus up
+cmd - l : aerospace focus right
+normal < h : aerospace focus left
+normal < j : aerospace focus down
+normal < k : aerospace focus up
+normal < l : aerospace focus right
+
+# move managed window
+# See: https://nikitabobko.github.io/AeroSpace/commands#move
+shift + cmd - h : aerospace move left
+shift + cmd - j : aerospace move down
+shift + cmd - k : aerospace move up
+shift + cmd - l : aerospace move right
+
+normal < cmd - h : aerospace move left
+normal < cmd - j : aerospace move down
+normal < cmd - k : aerospace move up
+normal < cmd - l : aerospace move right
+normal < cmd + shift - h : aerospace join-with left
+normal < cmd + shift - j : aerospace join-with down
+normal < cmd + shift - k : aerospace join-with up
+normal < cmd + shift - l : aerospace join-with right
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#resize
+# 0x1B - minus
+normal < 0x1B : aerospace resize smart -50
+# 0x18 - equal
+normal < 0x18 : aerospace resize smart +50
+# reset layout
+normal < r : aerospace flatten-workspace-tree
+
+# maximize and fullscreen
+cmd + shift - f : aerospace fullscreen
+cmd + ctrl - f : aerospace macos-native-fullscreen
+normal < f : aerospace fullscreen
+normal < shift - f : aerospace macos-native-fullscreen
+
+normal < x : aerospace close
+normal < shift - x : aerospace close-all-windows-but-current
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+default, normal, verbatim < cmd - tab : aerospace workspace-back-and-forth
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+# alt - b : aerospace workspace prev --wrap-around
+# alt - n : aerospace workspace next --wrap-around
+cmd - 1 : @as_ws("1")
+cmd - 2 : @as_ws("2")
+cmd - 3 : @as_ws("3")
+cmd - 4 : @as_ws("4")
+cmd - 5 : @as_ws("5")
+cmd - 6 : @as_ws("6")
+cmd - 7 : @as_ws("7")
+cmd - 8 : @as_ws("8")
+cmd - 9 : @as_ws("9")
+
+normal < 1 : @as_ws("1")
+normal < 2 : @as_ws("2")
+normal < 3 : @as_ws("3")
+normal < 4 : @as_ws("4")
+normal < 5 : @as_ws("5")
+normal < 6 : @as_ws("6")
+normal < 7 : @as_ws("7")
+normal < 8 : @as_ws("8")
+normal < 9 : @as_ws("9")
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+shift + cmd - 1 : @as_mn_ws("1")
+shift + cmd - 2 : @as_mn_ws("2")
+shift + cmd - 3 : @as_mn_ws("3")
+shift + cmd - 4 : @as_mn_ws("4")
+shift + cmd - 5 : @as_mn_ws("5")
+shift + cmd - 6 : @as_mn_ws("6")
+shift + cmd - 7 : @as_mn_ws("7")
+shift + cmd - 8 : @as_mn_ws("8")
+shift + cmd - 9 : @as_mn_ws("9")
+
+normal < cmd - 1 : @as_mn_ws("1")
+normal < cmd - 2 : @as_mn_ws("2")
+normal < cmd - 3 : @as_mn_ws("3")
+normal < cmd - 4 : @as_mn_ws("4")
+normal < cmd - 5 : @as_mn_ws("5")
+normal < cmd - 6 : @as_mn_ws("6")
+normal < cmd - 7 : @as_mn_ws("7")
+normal < cmd - 8 : @as_mn_ws("8")
+normal < cmd - 9 : @as_mn_ws("9")
+
+# monitor
+# 0x21 - [
+# 0x1E - ]
+# 0x2B - ,
+# 0x2F - .
+# doesn't seem to work
+normal < left : aerospace focus-monitor --wrap-around left
+normal < down : aerospace focus-monitor --wrap-around down
+normal < up : aerospace focus-monitor --wrap-around up
+normal < right : aerospace focus-monitor --wrap-around right
+
+normal < cmd - left : aerospace move-node-to-monitor --wrap-around left
+normal < cmd - down : aerospace move-node-to-monitor --wrap-around down
+normal < cmd - up : aerospace move-node-to-monitor --wrap-around up
+normal < cmd - right : aerospace move-node-to-monitor --wrap-around right
+
+normal < shift + cmd - left : aerospace move-workspace-to-monitor --wrap-around left
+normal < shift + cmd - down : aerospace move-workspace-to-monitor --wrap-around down
+normal < shift + cmd - up : aerospace move-workspace-to-monitor --wrap-around up
+normal < shift + cmd - right : aerospace move-workspace-to-monitor --wrap-around right
+

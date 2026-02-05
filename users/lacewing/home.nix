@@ -47,6 +47,7 @@ in {
       nodejs
       go
       nasmfmt
+      harper
       ## hm ##
       # nu
 
