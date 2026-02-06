@@ -1,0 +1,9 @@
+anl(s) := s + "\n":;
+
+PRR(Rs) := {
+  local s := 0;
+  for (k := 0; k < size(Rs); k++) {
+    s := s + 1 / Rs[k];
+  }
+  return 1 / s;
+}:;

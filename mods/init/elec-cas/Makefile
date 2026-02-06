@@ -1,7 +1,8 @@
+ENTRY := main.cas
 INFS := lib.cas main.cas
 OUTFS := out.cas
 
-default: cat run
+default: run
 
 cat:
 	@rm -f $(OUTFS)
@@ -12,7 +13,7 @@ cat:
 		done
 
 run:
-	giac $(OUTFS) 2>&1 | awk '/^\/\// { if (!f) { print ""; f=1 } next } { print; f=0 }'
+	giac $(ENTRY) 2>&1 | awk '/^\/\// { if (!f) { print ""; f=1 } next } { print; f=0 }'
 
 clean:
 	@rm -f $(OUTFS)

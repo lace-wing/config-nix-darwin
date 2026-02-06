@@ -50,6 +50,10 @@ in {
     enable = true;
   };
 
+  environment.etc = {
+    "icas".source = ./icas;
+  };
+
   system.defaults = {
     universalaccess = {
       reduceMotion = true;
