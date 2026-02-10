@@ -1,5 +1,4 @@
-read("/etc/icas/lib.cas");
-read("./lib.cas");
+read("/etc/icas/lib.icas");
 
 Kns := [];
 assign(Kns, []);

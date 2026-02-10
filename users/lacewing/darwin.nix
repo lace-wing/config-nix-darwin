@@ -107,6 +107,7 @@ in {
     iosevka
     nerd-fonts.monaspace
     nerd-fonts.iosevka-term
+    fira-mono
     xits-math
   ];
 

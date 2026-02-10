@@ -1,6 +1,6 @@
-ENTRY := main.cas
-INFS := lib.cas main.cas
-OUTFS := out.cas
+ENTRY := main.icas
+INFS := lib.icas main.icas
+OUTFS := out.icas
 
 default: run
 

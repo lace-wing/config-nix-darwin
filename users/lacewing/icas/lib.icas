@@ -1,0 +1,14 @@
+anl(s) := s + "\n":;
+
+ResPR(rs) := {
+  local s := 0;
+  for (k := 0; k < size(rs); k++) {
+    s := s + 1 / rs[k];
+  }
+  return 1 / s;
+}:;
+
+EgyL(ll, li) := 1/2 * ll * li^2 :;
+
+EgyC(cc, cv) := 1/2 * cc * cv^2 :;
+
