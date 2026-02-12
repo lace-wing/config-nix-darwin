@@ -1,0 +1,4 @@
+EgyL(ll, li) := 1/2 * ll * li^2 :;
+
+EgyC(cc, cv) := 1/2 * cc * cv^2 :;
+

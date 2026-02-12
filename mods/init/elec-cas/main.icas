@@ -1,7 +1,4 @@
-read("/etc/icas/lib.icas");
-
-Kns := [];
-assign(Kns, []);
+read("/etc/icas/libelec.icas");
 
 Vas := [];
 Eqs := [];

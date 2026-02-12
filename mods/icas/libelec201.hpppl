@@ -1,0 +1,100 @@
+// The only HP PPL programs valid during the midterm of ELEC 201, UBC V.
+// Author: L. R. Linares
+// Date: 2026-02-01
+
+// RESISTORS PARALLEL
+EXPORT RR(R1,R2)
+BEGIN
+  RETURN(R1*R2/(R1+R2));
+END;
+
+// Parallel of more than two
+ // resistors.  
+ // Input: list of resistors
+ // Output: equivalent ohms
+ EXPORT RPR(m)
+ BEGIN
+   LOCAL gtotal,n,ix;
+   n:=size(m);
+   FOR ix FROM 1 TO n STEP 1 DO
+     gtotal:=gtotal+1/m(ix);
+   END;
+   RETURN(1/gtotal);
+ END;
+ 
+ EXPORT RRR(r1,r2,r3)
+ BEGIN
+   LOCAL res;
+   res:=RPR({r1,r2,r3});
+   RETURN res;
+ END;
+
+// VOLT DIV
+EXPORT VV(VT,R1,R2)
+BEGIN
+  RETURN(VT*R1/(R1+R2));
+END;
+
+// CURRENT DIV
+EXPORT CC(IT,R1,R2)
+BEGIN
+  RETURN(IT*R2/(R1+R2));
+END;
+
+// Thevenin UBC Method
+EXPORT TT()
+BEGIN
+  LOCAL TM:=[[(1,0),(1,0)],[(1,0),(1,0)]];
+  LOCAL I1a:=(1,0),I2a:=(2,0);
+  LOCAL V1a:=(0,0),V2a:=(0,0);
+  LOCAL TH:=[(1,0),(1,0)];
+
+  INPUT({I1a,I2a,V1a,V2a},
+        "Thevenin/Helmholtz",{},
+        {"UPWARD TEST CURRENT",
+         "UPWARD TEST CURRENT",
+         "RIGHT SIDE UP",
+         "RIGHT SIDE UP"});
+  TM(1,2):=I1a; TM(2,2):=I2a;
+  TH:=inv(TM)*[V1a,V2a];
+  RETURN({[V1a,V2a]/TM});
+END;
+  
+// FIND LINE THROUGH 2 PTS
+EXPORT LINIE(X1,Y1,X2,Y2)
+BEGIN
+  LOCAL m,b;
+
+  m:=(Y2-Y1)/(X2-X1);
+  b:=Y2-m*X2;
+
+  RETURN {m,b,"y=mx+b"};
+END;
+
+ // DELTA TO WYE
+EXPORT D2Y(Rab,Rbc,Rca)
+BEGIN
+  LOCAL S:=Rab+Rbc+Rca;
+  RETURN({Rab*Rca/S,Rab*Rbc/S,Rbc*Rca/S});
+END;
+
+ // DELTA TO WYE WITH DIALOG
+EXPORT d2y()
+BEGIN
+  LOCAL Rab:=(0,0),Rbc:=(0,0),Rca:=(0,0);
+  INPUT({Rab,Rbc,Rca},"DELTA TO WYE");
+  LOCAL S:=Rab+Rbc+Rca;
+  RETURN({Rab*Rca/S,Rab*Rbc/S,Rbc*Rca/S});
+END;
+
+ // Wye to Delta
+ EXPORT Y2D(Ra,Rb,Rc)
+ BEGIN
+   LOCAL Ga:=1/Ra,Gb:=1/Rb,Gc:=1/Rc;
+   LOCAL S:=Ga+Gb+Gc,Gab,Gbc,Gca;
+   Gab:=Ga*Gb/S;
+   Gbc:=Gb*Gc/S;
+   Gca:=Gc*Ga/S;
+   RETURN {1/Gab,1/Gbc,1/Gca};
+ END;
+  

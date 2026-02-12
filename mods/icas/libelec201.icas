@@ -1,0 +1,105 @@
+// The only Xcas programs valid during the midterm of ELEC 201, UBC V.
+// Modified from L. R. Linares' HP PPL version.
+// Original: ./libelec201.hpppl
+// Author: Lacewing
+// Date: 2026-02-11
+
+/// Resistance of two parallel resistors.
+RR(
+  r1,
+  r2
+) := r1 * r2 / (r1 + r2):;
+
+/// Resistance of three parallel resistors.
+RRR(
+  r1,
+  r2,
+  r3
+) := r1 * r2 * r3 / (r1 + r2 + r3):;
+
+/// Resistance of a list of parallel resistors.
+///
+/// NOTE Having "RRR" and "RPR" at the same time is a terrible idea.
+RPRs(
+  /// A list of resistance
+  m
+) := {
+  local gtotal := 0;
+  for (ix := 0; ix < size(m); ix++) {
+    gtotal := gtotal + 1 / m[ix];
+  }
+  return 1 / gtotal;
+}:;
+
+/// Voltage drop across a resistor when divided by an other resistor in series.
+VV(
+  /// Total voltage drop
+  vt,
+  /// Resistance of the target resistor
+  r1,
+  /// Resistance of the other resistor
+  r2
+) := vt * r1 / (r1 + r2):;
+
+/// Current through a resistor when divided by an other resistor in parallel.
+CC(
+  /// Total current
+  it,
+  /// Resistance of the target resistor
+  r1,
+  /// Resistance of the other resistor
+  r2
+) := it * r2 / (r1 + r2):;
+
+/// Thevenin Equivalence voltage and inpedence.
+///
+/// --     --   --   --   --  --
+/// | 1  i1 |   | vth |   | v1 |
+/// | 1  i2 | x | zth | = | v2 |
+/// --     --   --   --   --  --
+///
+/// vec(vth, zth) = inv(mat(1, i1; 1, i2)) * vec(v1, v2)
+///
+/// NOTE input() crashes Xcas on macOS 15, or output unpleasant string in icas, so we use arguments.
+ThVZ(
+  i1 = 1,
+  i2 = 2,
+  v1 = 0,
+  v2 = 0
+) := inv([[1, i1], [1, i2]]) * [v1, v2]:;
+
+/// Coefficient `m` and constant `b` of a line from two points.
+P2LineMB(
+  x1,
+  y1,
+  x2,
+  y2
+) := {
+  local m := (y2 - y1) / (x2 - x1);
+  local b := y2 - m * x2;
+  return eval([m, b]); // Eval before leaving m's scope.
+}:;
+
+/// Delta to Wye resistance transformation.
+Del2Wye(
+  rab,
+  rbc,
+  rca
+) := apply(
+  a -> a / (rab + rbc + rca),
+  [rab * rca, rab * rbc, rbc * rca]
+):;
+
+/// Wye to Delta resistance transformation.
+Wye2Del(
+  ra,
+  rb,
+  rc
+) := {
+  local (ga := 1 / ra), (gb := 1 / rb), (gc := 1 / rc);
+  return apply(
+    a -> (ga + gb + gc) / a,
+    [ga * gb, gb * gc, gc * ga]
+  );
+}:;
+

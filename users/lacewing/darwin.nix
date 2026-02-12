@@ -6,6 +6,13 @@
 }: let
 in {
   homebrew = {
+    taps = [
+      "homebrew/core"
+      "homebrew/cask"
+      "jackielii/tap"
+      "LouisBrunner/valgrind"
+    ];
+
     brews = [
       "skhd-zig"
       # Does not work on macOS 15
@@ -19,7 +26,7 @@ in {
 
     casks = [
       "lulu"
-      "maccy"
+      # "maccy"
       "zen"
       "zoom"
       "legcord"
@@ -27,7 +34,7 @@ in {
       "mumble"
       "zerotier-one"
       "zotero"
-      "sf-symbols"
+      "sf-symbols" # various icons used in sketchybar, etc.
       "intellij-idea"
       "affinity-designer"
       "affinity-photo"
@@ -42,13 +49,6 @@ in {
       Amphetamine = 937984704;
     };
 
-    taps = [
-      "homebrew/core"
-      "homebrew/cask"
-      "jackielii/tap"
-      "LouisBrunner/valgrind"
-    ];
-
     onActivation = {
       upgrade = true;
       cleanup = "zap";
@@ -58,7 +58,7 @@ in {
   };
 
   environment.etc = {
-    "icas".source = ./icas;
+    "icas".source = ../../mods/icas;
   };
 
   system.defaults = {

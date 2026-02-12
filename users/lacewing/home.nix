@@ -46,10 +46,9 @@ in {
       zls
       nodejs
       go
-      nasmfmt
       harper
       ## hm ##
-      # nu
+      # nu # ls included
 
       ### Lib ###
 
@@ -61,6 +60,7 @@ in {
       jq
       ripgrep
       tree
+      clipboard-jh
       exiftool
       imagemagick
       poppler-utils
