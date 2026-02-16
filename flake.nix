@@ -52,7 +52,7 @@
 
     overlays = [
       (final: prev: {
-        zls = nixpkgs-old.legacyPackages.${prev.stdenv.hostPlatform.system}.zls;
+        # zls = nixpkgs-old.legacyPackages.${prev.stdenv.hostPlatform.system}.zls;
       })
     ];
   in {
