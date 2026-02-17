@@ -60,6 +60,7 @@ in {
       jq
       ripgrep
       tree
+      flamegraph
       clipboard-jh
       exiftool
       imagemagick
@@ -83,6 +84,8 @@ in {
       ### GUI App ###
       ## hm ##
       # ghostty
+      ## brew ##
+      # calibre
     ]
     ++ [
       initApp

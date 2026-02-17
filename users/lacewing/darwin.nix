@@ -26,7 +26,6 @@ in {
 
     casks = [
       "lulu"
-      # "maccy"
       "zen"
       "zoom"
       "legcord"
@@ -42,6 +41,7 @@ in {
       "microsoft-powerpoint"
       "microsoft-word"
       "steam"
+      "calibre"
     ];
 
     masApps = {
