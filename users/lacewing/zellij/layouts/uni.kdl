@@ -1,0 +1,41 @@
+layout {
+  cwd "$UNI_DIR"
+
+  default_tab_template {
+    children
+    pane size=1 borderless=true {
+      plugin location="zellij:compact-bar"
+    }
+  }
+
+  tab name="math-256" cwd="math-256" {
+    pane stacked=true {
+      pane name="note" edit="math-256.typ"
+      pane name="homework" cwd="$Y_SRC_DIR/math-256"
+    }
+  }
+
+  tab name="math-302" cwd="math-302" {
+    pane stacked=true {
+      pane name="note" edit="math-302.typ"
+      pane name="homework" cwd="$Y_SRC_DIR/math-302"
+    }
+  }
+
+  tab name="elec-201" cwd="elec-201" {
+    pane split_direction="vertical" {
+      pane name="note" edit="elec-201.typ"
+      pane name="cas" cwd="$Y_SRC_DIR/elec-201"
+    }
+  }
+
+  tab name="cpen-212" cwd="cpen-212" {
+    pane name="lab" cwd="$Y_SRC_DIR/cpen-212"
+  }
+
+  tab name="cpsc-221" cwd="cpsc-221" {
+    pane name="lab" cwd="$Y_SRC_DIR/cpsc-221"
+    pane name="pa" cwd="$Y_SRC_DIR/cpsc-221-pas"
+  }
+
+}

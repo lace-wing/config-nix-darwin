@@ -1,0 +1,71 @@
+keybinds clear-defaults=true {
+  shared_except "locked" {
+    // Mode
+    bind "Ctrl b" { SwitchToMode "tmux"; }
+  }
+
+  tmux {
+    // Pane
+    bind "\\" { NewPane "down"; SwitchToMode "normal"; }
+    bind "'" { NewPane "right"; SwitchToMode "normal"; }
+    bind "Ctrl '" { NewPane "stacked"; SwitchToMode "normal"; }
+    bind "q" { CloseFocus; SwitchToMode "normal"; }
+    bind "Ctrl f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+    bind "f" { ToggleFloatingPanes; SwitchToMode "normal"; }
+    bind "Shift f" { TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
+    bind "w" { NextSwapLayout; SwitchToMode "normal"; }
+    bind "Ctrl w" { PreviousSwapLayout; SwitchToMode "normal"; }
+    bind "=" { Resize "increase"; }
+    bind "-" { Resize "decrease"; }
+
+    bind "h" { MoveFocus "left"; SwitchToMode "normal"; }
+    bind "l" { MoveFocus "right"; SwitchToMode "normal"; }
+    bind "j" { MoveFocus "down"; SwitchToMode "normal"; }
+    bind "k" { MoveFocus "up"; SwitchToMode "normal"; }
+    bind "Ctrl h" { MovePane "left"; SwitchToMode "normal"; }
+    bind "Ctrl l" { MovePane "right"; SwitchToMode "normal"; }
+    bind "Ctrl j" { MovePane "down"; SwitchToMode "normal"; }
+    bind "Ctrl k" { MovePane "up"; SwitchToMode "normal"; }
+
+    bind "e" { EditScrollback; SwitchToMode "normal"; }
+    bind "Ctrl e" { Clear; SwitchToMode "normal"; }
+
+    // Tab
+    bind "c" { NewTab; SwitchToMode "normal"; }
+    bind "Ctrl q" { CloseTab; SwitchToMode "normal"; }
+    bind "Ctrl n" { MoveTab "right"; SwitchToMode "normal"; }
+    bind "Ctrl p" { MoveTab "left"; SwitchToMode "normal"; }
+
+    bind "n" { GoToNextTab; SwitchToMode "normal"; }
+    bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
+    bind "1" { GoToTab 1; SwitchToMode "normal"; }
+    bind "2" { GoToTab 2; SwitchToMode "normal"; }
+    bind "3" { GoToTab 3; SwitchToMode "normal"; }
+    bind "4" { GoToTab 4; SwitchToMode "normal"; }
+    bind "5" { GoToTab 5; SwitchToMode "normal"; }
+    bind "6" { GoToTab 6; SwitchToMode "normal"; }
+    bind "7" { GoToTab 7; SwitchToMode "normal"; }
+    bind "8" { GoToTab 8; SwitchToMode "normal"; }
+    bind "9" { GoToTab 9; SwitchToMode "normal"; }
+    
+    // Session
+    bind "d" { Detach; }
+    bind "s" { LaunchOrFocusPlugin "zellij:session-manager" { float true; }; SwitchToMode "normal"; }
+
+    // Input
+    bind "Ctrl b" { Write 2; SwitchToMode "normal"; }
+
+    // Mode
+    bind "Esc" { SwitchToMode "normal"; }
+  }
+
+  locked {
+    // Mode
+    bind "g" { SwitchToMode "normal"; }
+  }
+}
+
+pane_frames false
+
+show_startup_tips false
+

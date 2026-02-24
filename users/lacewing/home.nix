@@ -123,8 +123,13 @@ in {
       PAGER = "less -FirSwX";
       MANPAGER = "nvim +Man!";
 
-      NIX_CONFIG_SRC = "${config.xdg.configHome}/nix-darwin";
-      ZSH_CONFIG_SRC = "${config.home.sessionVariables.NIX_CONFIG_SRC}/users/${user}/zsh";
+      NIX_CONFIG_DIR = "${config.xdg.configHome}/nix-darwin";
+      ZSH_CONFIG_DIR = "${config.home.sessionVariables.NIX_CONFIG_DIR}/users/${user}/zsh";
+
+      X_SRC_DIR = "$HOME/src";
+      Y_SRC_DIR = "$HOME/srcy";
+
+      UNI_DIR = "${config.home.sessionVariables.Y_SRC_DIR}/study";
     }
     // (
       if isDarwin
@@ -143,6 +148,7 @@ in {
     "ghostty/shaders/".source = ../../mods/ghostty/shaders;
     "aerospace/".source = ./aerospace;
     "skhd/".source = ./skhd;
+    "zellij/".source = ./zellij;
   };
 
   #---------------------------------------------------------------------
@@ -214,6 +220,11 @@ in {
     enable = true;
   };
 
+  programs.zellij = {
+    enable = true;
+    # settings = xdg.configFile
+  };
+
   programs.neovim = {
     enable = true;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -262,14 +273,23 @@ in {
       la = "ls -a";
       ll = "ls -la";
 
-      rc = "$EDITOR $NIX_CONFIG_SRC";
-      zrc = "$EDITOR $ZSH_CONFIG_SRC/zshrc";
-      trc = "$EDITOR ~/.tmux.conf";
-      nrc = "$EDITOR ~/.config/nvim/init.lua";
+      rc = "$EDITOR $NIX_CONFIG_DIR";
+      zrc = "$EDITOR $ZSH_CONFIG_DIR/zshrc";
+      nrc = "$EDITOR $XDG_CONFIG_DIR/nvim/init.lua";
 
       cd = "z";
+      # shScripts
+      cdgt = "cd_git_top";
 
-      v = "nvim";
+      v = "$EDITOR";
+      #shScripts
+      vv = "fzf_editor";
+
+      zz = "zellij attach --create ";
+      zm = "zellij attach --create main";
+      zw = "zellij attach --create work";
+      # shScripts
+      zu = "zellij_session_layout uni";
     }
     // (
       if isDarwin

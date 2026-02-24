@@ -58,7 +58,7 @@ normal < x : aerospace close
 normal < shift - x : aerospace close-all-windows-but-current
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-default, normal, verbatim < cmd - tab : aerospace workspace-back-and-forth
+default, normal, verbatim < cmd - tab : aerospace workspace-back-and-forth && sketchybar --trigger workspace_change FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 # alt - b : aerospace workspace prev --wrap-around
