@@ -40,7 +40,6 @@ in {
       beam28Packages.elixir
       beam28Packages.elixir-ls
       dotnet-sdk
-      # dotnet-sdk_8 # no pkg
       roslyn-ls
       zig
       zls
@@ -285,6 +284,7 @@ in {
       #shScripts
       vv = "fzf_editor";
 
+      za = "zellij action ";
       zz = "zellij attach --create ";
       zm = "zellij attach --create main";
       zw = "zellij attach --create work";

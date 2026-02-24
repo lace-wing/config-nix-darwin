@@ -1,17 +1,24 @@
 theme "kanagawa"
 
-pane_frames false
-
 keybinds clear-defaults=true {
-  shared_except "locked" {
+  shared_except "normal" {
     // Mode
-    bind "Ctrl b" { SwitchToMode "tmux"; }
+    bind "Esc" { SwitchToMode "normal"; }
+  }
+
+  normal {
+    // Mode
+    bind "Ctrl a" { SwitchToMode "tmux"; }
+  }
+
+  shared_among "renamepane" "renametab" {
+    bind "Enter" { SwitchToMode "normal"; }
   }
 
   tmux {
     // Pane
-    bind "\\" { NewPane "down"; SwitchToMode "normal"; }
-    bind "'" { NewPane "right"; SwitchToMode "normal"; }
+    bind "\\" { NewPane "right"; SwitchToMode "normal"; }
+    bind "'" { NewPane "down"; SwitchToMode "normal"; }
     bind "Ctrl '" { NewPane "stacked"; SwitchToMode "normal"; }
     bind "q" { CloseFocus; SwitchToMode "normal"; }
     bind "Ctrl f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
@@ -33,15 +40,16 @@ keybinds clear-defaults=true {
 
     bind "e" { EditScrollback; SwitchToMode "normal"; }
     bind "Ctrl e" { Clear; SwitchToMode "normal"; }
+    bind "." { SwitchToMode "renamepane"; }
 
     // Tab
     bind "c" { NewTab; SwitchToMode "normal"; }
     bind "Ctrl q" { CloseTab; SwitchToMode "normal"; }
     bind "Ctrl n" { MoveTab "right"; SwitchToMode "normal"; }
-    bind "Ctrl p" { MoveTab "left"; SwitchToMode "normal"; }
+    bind "Ctrl b" { MoveTab "left"; SwitchToMode "normal"; }
 
     bind "n" { GoToNextTab; SwitchToMode "normal"; }
-    bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
+    bind "b" { GoToPreviousTab; SwitchToMode "normal"; }
     bind "1" { GoToTab 1; SwitchToMode "normal"; }
     bind "2" { GoToTab 2; SwitchToMode "normal"; }
     bind "3" { GoToTab 3; SwitchToMode "normal"; }
@@ -52,15 +60,14 @@ keybinds clear-defaults=true {
     bind "8" { GoToTab 8; SwitchToMode "normal"; }
     bind "9" { GoToTab 9; SwitchToMode "normal"; }
     
+    bind "Ctrl ." { SwitchToMode "renametab"; }
+
     // Session
     bind "d" { Detach; }
     bind "s" { LaunchOrFocusPlugin "zellij:session-manager" { floating true; }; SwitchToMode "normal"; }
 
     // Input
-    bind "Ctrl b" { Write 2; SwitchToMode "normal"; }
-
-    // Mode
-    bind "Esc" { SwitchToMode "normal"; }
+    bind "Ctrl a" { Write 2; SwitchToMode "normal"; }
   }
 
   locked {
