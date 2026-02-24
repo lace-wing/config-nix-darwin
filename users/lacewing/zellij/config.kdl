@@ -1,3 +1,7 @@
+theme "kanagawa"
+
+pane_frames false
+
 keybinds clear-defaults=true {
   shared_except "locked" {
     // Mode
@@ -50,7 +54,7 @@ keybinds clear-defaults=true {
     
     // Session
     bind "d" { Detach; }
-    bind "s" { LaunchOrFocusPlugin "zellij:session-manager" { float true; }; SwitchToMode "normal"; }
+    bind "s" { LaunchOrFocusPlugin "zellij:session-manager" { floating true; }; SwitchToMode "normal"; }
 
     // Input
     bind "Ctrl b" { Write 2; SwitchToMode "normal"; }
@@ -64,8 +68,6 @@ keybinds clear-defaults=true {
     bind "g" { SwitchToMode "normal"; }
   }
 }
-
-pane_frames false
 
 show_startup_tips false
 
