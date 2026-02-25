@@ -10,21 +10,21 @@ layout {
 
   tab name="math-256" cwd="math-256" {
     pane stacked=true {
-      pane name="note" edit="math-256.typ"
+      pane name="note" command="$EDITOR" start_suspended=true { args "math-256.typ"; }
       pane name="homework" cwd="$Y_SRC_DIR/math-256"
     }
   }
 
   tab name="math-302" cwd="math-302" {
     pane stacked=true {
-      pane name="note" edit="math-302.typ"
+      pane name="note" command="$EDITOR" start_suspended=true { args "math-302.typ"; }
       pane name="homework" cwd="$Y_SRC_DIR/math-302"
     }
   }
 
   tab name="elec-201" cwd="elec-201" {
     pane split_direction="vertical" {
-      pane name="note" edit="elec-201.typ"
+      pane name="note" command="$EDITOR" start_suspended=true { args "elec-201.typ"; }
       pane name="cas" cwd="$Y_SRC_DIR/elec-201"
     }
   }

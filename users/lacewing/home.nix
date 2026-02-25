@@ -274,7 +274,7 @@ in {
 
       rc = "$EDITOR $NIX_CONFIG_DIR";
       zrc = "$EDITOR $ZSH_CONFIG_DIR/zshrc";
-      nrc = "$EDITOR $XDG_CONFIG_DIR/nvim/init.lua";
+      nrc = "$EDITOR $XDG_CONFIG_HOME/nvim/init.lua";
 
       cd = "z";
       # shScripts
@@ -284,8 +284,8 @@ in {
       #shScripts
       vv = "fzf_editor";
 
-      za = "zellij action ";
-      zz = "zellij attach --create ";
+      za = "zellij action";
+      zz = "zellij attach --create";
       zm = "zellij attach --create main";
       zw = "zellij attach --create work";
       # shScripts
