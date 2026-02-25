@@ -3,10 +3,10 @@
 #############
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
 
-.define as_ws : aerospace workspace {{1}} && sketchybar --trigger workspace_change FOCUSED_WORKSPACE={{1}}
-.define as_mn_ws : aerospace move-node-to-workspace {{1}} && aerospace workspace {{1}} && sketchybar --trigger workspace_change FOCUSED_WORKSPACE={{1}}
+.define as_ws : aerospace workspace {{1}}
+.define as_mn_ws : aerospace move-node-to-workspace {{1}} && aerospace workspace {{1}}
 
-normal < cmd - r : aerospace reload-config && osascript -e 'display notification "Config reloaded" with title "Aerospace"'
+normal < cmd - r : aerospace reload-config
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 # 0x2C - slash
@@ -58,7 +58,7 @@ normal < x : aerospace close
 normal < shift - x : aerospace close-all-windows-but-current
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-default, normal, verbatim < cmd - tab : aerospace workspace-back-and-forth && sketchybar --trigger workspace_change FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"
+default, normal, verbatim < cmd - tab : aerospace workspace-back-and-forth
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 # alt - b : aerospace workspace prev --wrap-around

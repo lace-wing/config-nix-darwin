@@ -62,26 +62,6 @@ defaults=(
 
 sketchybar --default "${defaults[@]}"
 
-# Left
-# source "$ITEM_DIR/wm_mode.sh"
-# source "$ITEM_DIR/spaces.sh"
-# source "$ITEM_DIR/front_app.sh"
-
-# source "$ITEM_DIR/svim.sh"
-
-# right side of the notch
-# https://github.com/FelixKratz/SketchyBar/issues/708
-# source "$ITEM_DIR/media.sh"
-
-# Right
-# source "$ITEM_DIR/calender.sh"
-# source "$ITEM_DIR/net.sh"
-# source "$ITEM_DIR/battery.sh"
-
-# source "$ITEM_DIR/legcord.sh"
-# source "$ITEM_DIR/wechat.sh"
-# source "$ITEM_DIR/qq.sh"
-
 # groups
 
 bracket=(
@@ -101,12 +81,12 @@ brackem() {
 		--set "$name" ${bracket[@]}
 }
 
-state=(
+wm=(
 	wm_mode
 	space
 	front_app
 )
-brackem state
+brackem wm
 
 sys=(
 	calendar
@@ -120,17 +100,6 @@ chat=(
 	wechat
 )
 brackem chat
-
-input=(
-	# plover
-)
-brackem input
-
-texts=(
-	words_q
-	words_e
-)
-brackem texts
 
 # Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update
