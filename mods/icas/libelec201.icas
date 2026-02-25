@@ -2,7 +2,17 @@
 // Modified from L. R. Linares' HP PPL version.
 // Original: ./libelec201.hpppl
 // Author: Lacewing
-// Date: 2026-02-11
+// Date: 2026-02-25
+
+/// Switch to radian mode.
+RadMode() := {
+  angle_radian := 1;
+}:;
+
+/// Switch to degree mode.
+DegMode() := {
+  angle_radian := 0;
+}:;
 
 /// Resistance of two parallel resistors.
 RR(
@@ -10,25 +20,28 @@ RR(
   r2
 ) := r1 * r2 / (r1 + r2):;
 
+/// Resistance of a list of parallel resistors.
+RPRs(
+  /// A list of resistance
+  rs
+) := {
+  local s := 0;
+  local x := 0;
+  while (x < len(rs)) {
+    s := s + 1 / rs[x];
+    x := x + 1;
+  };
+  return 1 / s;
+}:;
+
 /// Resistance of three parallel resistors.
 RRR(
   r1,
   r2,
   r3
-) := r1 * r2 * r3 / (r1 + r2 + r3):;
-
-/// Resistance of a list of parallel resistors.
-///
-/// NOTE Having "RRR" and "RPR" at the same time is a terrible idea.
-RPRs(
-  /// A list of resistance
-  m
 ) := {
-  local gtotal := 0;
-  for (ix := 0; ix < size(m); ix++) {
-    gtotal := gtotal + 1 / m[ix];
-  }
-  return 1 / gtotal;
+  local res = RPRs([r1, r2, r3]);
+  return res;
 }:;
 
 /// Voltage drop across a resistor when divided by an other resistor in series.
@@ -51,7 +64,7 @@ CC(
   r2
 ) := it * r2 / (r1 + r2):;
 
-/// Thevenin Equivalence voltage and inpedence.
+/// Thevenin Equivalence voltage and impedence.
 ///
 /// --     --   --   --   --  --
 /// | 1  i1 |   | vth |   | v1 |
@@ -62,14 +75,14 @@ CC(
 ///
 /// NOTE input() crashes Xcas on macOS 15, or output unpleasant string in icas, so we use arguments.
 ThVZ(
-  i1 = 1,
-  i2 = 2,
-  v1 = 0,
-  v2 = 0
+  i1,
+  i2,
+  v1,
+  v2
 ) := inv([[1, i1], [1, i2]]) * [v1, v2]:;
 
 /// Coefficient `m` and constant `b` of a line from two points.
-P2LineMB(
+P2LinMB(
   x1,
   y1,
   x2,
@@ -85,10 +98,10 @@ Del2Wye(
   rab,
   rbc,
   rca
-) := apply(
-  a -> a / (rab + rbc + rca),
-  [rab * rca, rab * rbc, rbc * rca]
-):;
+) := {
+  local s := rab + rbc + rca;
+  return [rab * rca / s, rab * rbc / s, rbc * rca / s];
+}:;
 
 /// Wye to Delta resistance transformation.
 Wye2Del(
@@ -97,9 +110,85 @@ Wye2Del(
   rc
 ) := {
   local (ga := 1 / ra), (gb := 1 / rb), (gc := 1 / rc);
-  return apply(
-    a -> (ga + gb + gc) / a,
-    [ga * gb, gb * gc, gc * ga]
-  );
+  local s = (ga + gb + gc);
+  return  [s / (ga * gb), s / (gb * gc), s / (gc * ga)];
+}:;
+
+// UPDATE @482
+// 2026-02-25 
+
+/// Degrees to radians.
+/// NOTE Use `radians()` instead.
+Deg2Rad := radians:;
+ 
+/// Radians to degrees.
+/// NOTE Use `degrees()` instead.
+Rad2Deg := degrees:;
+ 
+/// Rectangular coordinate to polar coordinate.
+/// NOTE Use `polar_coordinates()` instead.
+Rec2Pol := polar_coordinates:;
+// Rec2Pol(a) := {
+//   local angle_mode := angle_radian;
+//   angle_radian := 0;
+//   local (m := abs(a)), (t := arg(a) * 180 / pi);
+//   angle_radian := angle_mode;
+//   return [m, t];
+// }:;
+
+/// Polar coordinate to rectangular coordinate.
+/// NOTE Use `rectangular_coordinates()` instead.
+Pol2Rec := rectangular_coordinates:;
+// Pol2rec(m, t) := {
+//   local angle_mode := angle_radian;
+//   angle_radian := 0;
+//   local (a := m * cos(t)), (b := m * sin(t));
+//   angle_radian := angle_mode;
+//   rerurn a + i * b;
+// }:;
+ 
+/// Argument in radians to degrees.
+ArgDeg(a) := degrees(arg(a)):;
+
+/// Argument in degrees to radians.
+ArgRad(a) := radians(arg(a)):;
+
+/// Linear interpolation from two points.
+Lin(
+  p1,
+  p2,
+  x
+) := {
+  local x1, y1, x2, y2;
+  local p1c := complex(p1);
+  local p2c := complex(p2);
+  [x1, y1, x2, y2] := [re(p1c), im(p1c), re(p2c), im(p2c)];
+  return y1 + (x - x1) * (y2 - y1) / (x2 - x1);
+}:;
+
+/// Linear interpolation when y is based on log(x), from two points.
+LnXLin(
+  p1,
+  p2,
+  x
+) := {
+  local x1, y1, x2, y2;
+  local p1c := complex(p1);
+  local p2c := complex(p2);
+  [x1, y1, x2, y2] := [ln(re(p1c)), im(p1c), ln(re(p2c)), im(p2c)];
+  return y1 + (ln(x) - x1) * (y2 - y1) / (x2 - x1);
+}:;
+
+/// Linear interpolation when log(y) is based on x, from two points.
+LnYLin(
+  p1,
+  p2,
+  x
+) := {
+  local x1, y1, x2, y2;
+  local p1c := complex(p1);
+  local p2c := complex(p2);
+  [x1, y1, x2, y2] := [re(p1c), ln(im(p1c)), re(p2c), ln(im(p2c))];
+  return exp(y1 + (x - x1) * (y2 - y1) / (x2 - x1));
 }:;
 

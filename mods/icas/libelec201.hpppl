@@ -1,6 +1,6 @@
 // The only HP PPL programs valid during the midterm of ELEC 201, UBC V.
 // Author: L. R. Linares
-// Date: 2026-02-01
+// Date: 2026-02-25
 
 // RESISTORS PARALLEL
 EXPORT RR(R1,R2)
@@ -97,4 +97,115 @@ END;
    Gca:=Gc*Ga/S;
    RETURN {1/Gab,1/Gbc,1/Gca};
  END;
-  
+
+// UPDATE @482
+// 2026-02-25 
+
+// Degrees to radians
+EXPORT d2r(D)
+ BEGIN
+   RETURN(D*π/180);
+ END;
+ 
+ // Radians to degrees
+ EXPORT r2d(R)
+ BEGIN
+   RETURN(R*180/π);
+ END;
+ 
+ // Rec to Polar
+ // Input: complex number
+ // Output: list with
+ //  {abs,arg in degrees}
+ EXPORT r2p(a)
+ BEGIN
+   LOCAL m,t,anglemode;
+   anglemode:=HAngle;
+   HAngle:=0;
+   m:=abs(a); t:=arg(a)*180/pi;
+   HAngle:=anglemode;
+   RETURN({m,t});
+ END;
+ 
+ // Polar to Rec
+ // Input: abs,arg in degrees
+ // Output: complex number
+ EXPORT p2r(m,degrees)
+ BEGIN
+ LOCAL a,b,mode;
+   mode:=HAngle; HAngle:=1;
+   a:=m*cos(degrees);
+   b:=m*sin(degrees);
+   HAngle:=mode;
+   RETURN(a+i*b);
+ END;
+ 
+ // argument in degrees
+ // Input: complex number
+ // Output: argument (degrees)
+ EXPORT argd(a)
+ BEGIN
+   LOCAL mode:=HAngle,x;
+   HAngle:=0;
+   x:=arg(a)*180/pi;
+   HAngle:=mode;
+   RETURN(x);
+ END;
+ 
+ EXPORT lg(x)
+ BEGIN
+   RETURN(LOG(x));
+ END;  
+
+// Linear Interpolation
+// The segment is between
+// two points (x1,y1) and (x2,y2)
+// and we need to find y for a known x.
+EXPORT LIN(x,x1,y1,x2,y2)
+BEGIN
+  LOCAL y;
+  IF(x≤x1)THEN
+    y:=x*y1/x1;
+  ELSE
+    y:=y1+(x-x1)*(y2-y1)/(x2-x1);
+  END;
+  RETURN(y);
+END;
+
+// Linear interpolation
+EXPORT LIP()
+BEGIN
+  LOCAL X,X1,X2,Y1,Y2;
+
+  INPUT({X,X1,X2,Y1,Y2},
+        "Linear Interpolation");
+  RETURN(Y1+(X-X1)*(Y2-Y1)/(X2-X1));
+END;
+
+// Interpolate in semilog paper when
+// we enter through the log axis
+// (As in H-->B).
+EXPORT LOGXIP()
+BEGIN
+  LOCAL X,X1,X2,Y1,Y2;
+  LOCAL LX,LX1,LX2;
+
+  INPUT({X,X1,X2,Y1,Y2},
+        "Log-X Interpolation");
+  LX:=LOG(X); LX1:=LOG(X1); LX2:=LOG(X2);
+  RETURN(Y1+(LX-LX1)*(Y2-Y1)/(LX2-LX1));
+END;
+
+// Interpolate on semilog paper when we enter
+// through the linear axis.  (As in B --> H)
+EXPORT LOGYIP()
+BEGIN
+  LOCAL X,X1,X2,Y1,Y2;
+  LOCAL LY1,LY2;
+
+  INPUT({X,X1,X2,Y1,Y2},
+        "Log-Y Interpolation");
+  LY1:=LOG(Y1); LY2:=LOG(Y2);
+  RETURN(ALOG(LY1+(X-X1)*(LY2-LY1)/(X2-X1)));
+END;
+
