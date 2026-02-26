@@ -63,7 +63,6 @@ in {
       exiftool
       imagemagick
       poppler-utils
-      python314Packages.jupytext
       giac
       ## hm ##
       # sketchybar

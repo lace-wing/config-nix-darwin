@@ -8,7 +8,7 @@ keybinds clear-defaults=true {
 
   normal {
     // Mode
-    bind "Ctrl a" { SwitchToMode "tmux"; }
+    bind "Ctrl b" { SwitchToMode "tmux"; }
   }
 
   shared_among "renamepane" "renametab" {
@@ -46,10 +46,10 @@ keybinds clear-defaults=true {
     bind "c" { NewTab; SwitchToMode "normal"; }
     bind "Ctrl q" { CloseTab; SwitchToMode "normal"; }
     bind "Ctrl n" { MoveTab "right"; SwitchToMode "normal"; }
-    bind "Ctrl b" { MoveTab "left"; SwitchToMode "normal"; }
+    bind "Ctrl p" { MoveTab "left"; SwitchToMode "normal"; }
 
     bind "n" { GoToNextTab; SwitchToMode "normal"; }
-    bind "b" { GoToPreviousTab; SwitchToMode "normal"; }
+    bind "p" { GoToPreviousTab; SwitchToMode "normal"; }
     bind "1" { GoToTab 1; SwitchToMode "normal"; }
     bind "2" { GoToTab 2; SwitchToMode "normal"; }
     bind "3" { GoToTab 3; SwitchToMode "normal"; }
@@ -67,7 +67,7 @@ keybinds clear-defaults=true {
     bind "s" { LaunchOrFocusPlugin "zellij:session-manager" { floating true; }; SwitchToMode "normal"; }
 
     // Input
-    bind "Ctrl a" { Write 2; SwitchToMode "normal"; }
+    // bind "Ctrl a" { Write 2; SwitchToMode "normal"; }
   }
 
   locked {
