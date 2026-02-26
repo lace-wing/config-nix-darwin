@@ -37,10 +37,9 @@ in {
       pyright
       typst
       tinymist
-      beam28Packages.elixir
-      beam28Packages.elixir-ls
       dotnet-sdk
       roslyn-ls
+      fsautocomplete
       zig
       zls
       nodejs
