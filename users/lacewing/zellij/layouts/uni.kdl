@@ -22,11 +22,9 @@ layout {
     }
   }
 
-  tab name="elec-201" cwd="elec-201" {
-    pane split_direction="vertical" {
-      pane name="note" command="$EDITOR" start_suspended=true { args "elec-201.typ"; }
-      pane name="cas" cwd="$Y_SRC_DIR/elec-201"
-    }
+  tab name="elec-201" cwd="elec-201" split_direction="vertical" {
+    pane name="note" command="$EDITOR" start_suspended=true { args "elec-201.typ"; }
+    pane name="cas" cwd="$Y_SRC_DIR/elec-201"
   }
 
   tab name="cpen-212" cwd="cpen-212" {
