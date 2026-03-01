@@ -39,7 +39,9 @@ in {
       tinymist
       dotnet-sdk
       roslyn-ls
+      fsharp
       fsautocomplete
+      fantomas
       zig
       zls
       nodejs
