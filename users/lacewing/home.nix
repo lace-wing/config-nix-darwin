@@ -39,7 +39,7 @@ in {
       tinymist
       dotnet-sdk
       roslyn-ls
-      fsharp
+      # fsharp
       fsautocomplete
       fantomas
       zig
@@ -53,6 +53,7 @@ in {
       ### Lib ###
 
       ### Tool ###
+      outfieldr
       fd
       fzf
       gh

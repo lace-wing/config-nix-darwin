@@ -45,11 +45,11 @@ verbatim < cmd - escape ; default
 # Apps #
 ########
 
-normal < t : open -a /Applications/Ghostty.app
-normal < shift - t : open -na /Applications/Ghostty.app
+normal < t : open -a /Applications/Ghostty.app ; default
+normal < shift - t : open -na /Applications/Ghostty.app ; default
 
-normal < b : open -a '/Applications/Zen Browser.app'
-normal < shift - b : open -na '/Applications/Zen Browser.app'
+normal < b : open -a '/Applications/Zen Browser.app' ; default
+normal < shift - b : open -na '/Applications/Zen Browser.app' ; default
 
 # # ################################################################ #
 # # THE FOLLOWING IS AN EXPLANATION OF THE GRAMMAR THAT SKHD PARSES. #
