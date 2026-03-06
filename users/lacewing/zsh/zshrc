@@ -13,6 +13,16 @@ zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'exter
 # enable autocompletion for subcommands
 autoload -Uz compinit && compinit
 
+# enable autocomplete history with up arrow
+# man zshzle. Search for "History Control".
+# man zshcontrib. Search for "up-line-or-beginning-search".
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+
 # enable command editor
 autoload -z edit-command-line
 zle -N edit-command-line
