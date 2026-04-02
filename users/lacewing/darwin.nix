@@ -16,12 +16,12 @@ in {
     brews = [
       "skhd-zig"
       # Does not work on macOS 15
-      # {
-      #   name = "LouisBrunner/valgrind/valgrind";
-      #   args = [
-      #     "head"
-      #   ];
-      # }
+      {
+        name = "LouisBrunner/valgrind/valgrind";
+        args = [
+          "head"
+        ];
+      }
     ];
 
     casks = [

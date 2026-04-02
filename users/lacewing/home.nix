@@ -45,7 +45,6 @@ in {
       zls
       nodejs
       go
-      harper
 
       ### Lib ###
       man-pages
@@ -65,8 +64,10 @@ in {
       exiftool
       imagemagick
       poppler-utils
-      giac
+      pdfpc
       zjstatus
+      fastfetch
+      giac
 
       ### GUI App ###
     ]
@@ -75,12 +76,12 @@ in {
     ]
     ++ (lib.optionals isDarwin [
       # This is automatically setup on Linux
-      pkgs.gettext
+      gettext
       macism
     ])
     ++ (lib.optionals (isLinux && !isWSL) [
-      pkgs.clang
-      pkgs.valgrind
+      clang
+      valgrind
     ]);
 
   #---------------------------------------------------------------------
@@ -209,7 +210,7 @@ in {
 
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   programs.ghostty = {
