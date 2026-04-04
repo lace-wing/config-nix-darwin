@@ -1,5 +1,5 @@
 {
-  description = "A macOS config";
+  description = "A Nix config for macOS and NixOS";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -27,6 +27,11 @@
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,28 +47,36 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    nixpkgs-old,
-    home-manager,
-    darwin,
-    ...
-  }: let
-    mkSystem = import ./lib/mkSystem.nix {
-      inherit nixpkgs overlays inputs;
-    };
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nixpkgs-old,
+      home-manager,
+      darwin,
+      ...
+    }:
+    let
+      mkSystem = import ./lib/mkSystem.nix {
+        inherit nixpkgs overlays inputs;
+      };
 
-    overlays = with inputs; [
-      (final: prev: {
-        zjstatus = zjstatus.packages.${prev.pkgs.stdenv.hostPlatform.system}.default;
-      })
-    ];
-  in {
-    darwinConfigurations.mbp-m1 = mkSystem "mbp-m1" {
-      system = "aarch64-darwin";
-      user = "lacewing";
-      darwin = true;
+      overlays = with inputs; [
+        (final: prev: {
+          zjstatus = zjstatus.packages.${prev.pkgs.stdenv.hostPlatform.system}.default;
+        })
+      ];
+    in
+    {
+      darwinConfigurations.mbp-m1 = mkSystem "mbp-m1" {
+        system = "aarch64-darwin";
+        user = "lacewing";
+        darwin = true;
+      };
+
+      nixosConfigurations.tp-t14 = mkSystem "tp-t14" {
+        system = "x86_64-linux";
+        user = "lacewing";
+      };
     };
-  };
 }
