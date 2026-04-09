@@ -224,7 +224,7 @@ in {
   };
 
   programs.sketchybar = {
-    enable = true;
+    enable = isDarwin;
     config = {
       recursive = true;
       source = ./sketchybar;
@@ -232,7 +232,7 @@ in {
   };
 
   programs.aerospace = {
-    enable = true;
+    enable = isDarwin;
     # settings = xdg.configFile
   };
 
