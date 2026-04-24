@@ -29,7 +29,6 @@ in {
       "zen"
       "zoom"
       "legcord"
-      "whatsapp"
       "mumble"
       "zerotier-one"
       "zotero"
@@ -38,8 +37,7 @@ in {
       "affinity-designer"
       "affinity-photo"
       "affinity-publisher"
-      "microsoft-powerpoint"
-      "microsoft-word"
+      "microsoft-excel"
       "steam"
       "calibre"
     ];
