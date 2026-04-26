@@ -45,18 +45,22 @@ in {
       zls
       nodejs
       go
+      cargo
 
       ### Lib ###
       man-pages
       man-pages-posix
 
       ### Tool ###
+      neovim
+      tree-sitter
       outfieldr
       fd
       fzf
       gh
       htop
       jq
+      yq
       ripgrep
       tree
       flamegraph
@@ -168,6 +172,10 @@ in {
     ];
   };
 
+  programs.nushell = {
+    enable = true;
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -207,10 +215,10 @@ in {
     # settings = xdg.configFile
   };
 
-  programs.neovim = {
-    enable = true;
-    # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  };
+  # programs.neovim = {
+  #   enable = true;
+  #   # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  # };
 
   programs.ghostty = {
     enable = true;
