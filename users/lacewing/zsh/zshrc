@@ -1,18 +1,8 @@
-# Colors {{{
-export TERM="xterm-256color"
-[[ -n $TMUX ]] && export TERM="tmux-256color"
+# Extra Env {{{
 export CLICOLOR=1
-export LSCOLORS="ExFxBxDxCxegedabagacad"
 # }}}
 
 # Zsh Features {{{
-# configuring zsh compltion
-zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'external commands'
-
-# enable autocompletion for subcommands
-autoload -Uz compinit && compinit
-
 # enable autocomplete history with up arrow
 # man zshzle. Search for "History Control".
 # man zshcontrib. Search for "up-line-or-beginning-search".
@@ -27,33 +17,8 @@ bindkey "^[[B" down-line-or-beginning-search
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
-
-# enable vcs info
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
-precmd_functions+=( vcs_info )
-
-# git info style
-# zstyle ':vcs_info:*+*:*' debug true
-zstyle ':vcs_info:git*' formats '%b'
-
 # }}}
 
 # External Features{{{
-# sourcing carapace for its completions
-source <(carapace _carapace)
-
-# zoxide init (after compinit)
-eval "$(zoxide init zsh)"
 # }}}
-
-# Prompt {{{
-setopt PROMPT_SUBST
-
-export PROMPT='%n%F{cyan}@%f%m%F{cyan}:%f%F{green}%3~%f %F{blue}${vcs_info_msg_0_}%f
-%# '
-export RPROMPT='%0(?..%F{red}%?%f)'
-# }}}
-
-# startup visuals and commands
 
