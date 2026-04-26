@@ -65,6 +65,7 @@
       (final: prev: {
         zjstatus = zjstatus.packages.${prev.pkgs.stdenv.hostPlatform.system}.default;
         zsh =
+          # FIXME
           # https://github.com/NixOS/nixpkgs/issues/513543
           prev.zsh.overrideAttrs (old:
             prev.lib.optionalAttrs prev.stdenv.isDarwin {
@@ -73,15 +74,6 @@
                 + ''
                   export zsh_cv_sys_sigsuspend=yes
                 '';
-            });
-        direnv =
-          # https://github.com/yu-sz/dotfiles/commit/c18062a2547b82a5e4ba5ede76c048c38fb2afff
-          assert lib.assertMsg (prev.direnv.version == "2.37.1" && (prev.direnv.doCheck or true))
-          "Overlay nix/overlays/direnv.nix may no longer be needed: direnv=${prev.direnv.version}, doCheck=${
-            lib.boolToString (prev.direnv.doCheck or true)
-          }. Try removing the overlay.";
-            prev.direnv.overrideAttrs (_: {
-              doCheck = false;
             });
       })
     ];
