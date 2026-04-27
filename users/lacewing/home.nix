@@ -48,6 +48,7 @@ in {
       nodejs
       go
       cargo
+      nufmt
 
       ### Lib ###
       man-pages
@@ -202,6 +203,9 @@ in {
 
   programs.starship = {
     enable = true;
+    presets = [
+      "plain-text-symbols"
+    ];
   };
 
   programs.carapace = {
