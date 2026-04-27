@@ -17,20 +17,15 @@ font-size = 16
 # cursor-color = #777755
 
 # vibrant earthy
-theme = Arthur
+# theme = Arthur
 
-# hide titlebar, but it still exists
+# custom
+theme = Hanekawa
+
 macos-titlebar-style = hidden
 
-# remove titlebar and rounded corners # nvim buffer text shadow stays upon focus gain until focus loss
-# window-decoration = none
-
-background-opacity = 0.65
+background-opacity = 0.6
 background-blur-radius = 0
-
-# shaders
-custom-shader = shaders/cursor_smear.glsl
-custom-shader = shaders/cursor_blaze_no_trail.glsl
 
 # alt fix
 macos-option-as-alt = left
