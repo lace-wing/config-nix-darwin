@@ -19,6 +19,16 @@
     name = "init";
     text = builtins.readFile ./../../mods/init/init.sh;
   };
+
+  vim-macos-ime = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-macos-ime";
+    src = pkgs.fetchFromGitHub {
+      owner = "laishulu";
+      repo = "vim-macos-ime";
+      rev = "master";
+      sha256 = "tQYq/DWb6j+FIAxuA861ct/ym/1y1oROJgk8hqp0rZ0=";
+    };
+  };
 in {
   home.stateVersion = "26.05";
 
@@ -32,31 +42,20 @@ in {
     [
       ### Lang ###
       nixd
-      alejandra
       clang-tools
-      lua-language-server
       python314
-      pyright
       typst
-      tinymist
       dotnet-sdk
-      roslyn-ls
-      fsautocomplete
-      fantomas
       zig
-      zls
       nodejs
       go
       cargo
-      nufmt
 
       ### Lib ###
       man-pages
       man-pages-posix
 
       ### Tool ###
-      neovim
-      tree-sitter
       outfieldr
       fd
       fzf
@@ -72,6 +71,7 @@ in {
       imagemagick
       poppler-utils
       pdfpc
+      mpv
       zjstatus
       fastfetch
       giac
@@ -81,15 +81,15 @@ in {
     ++ [
       initApp
     ]
-    ++ (lib.optionals isDarwin [
+    ++ lib.optionals isDarwin [
       # This is automatically setup on Linux
       gettext
       macism
-    ])
-    ++ (lib.optionals (isLinux && !isWSL) [
+    ]
+    ++ lib.optionals (isLinux && !isWSL) [
       clang
       valgrind
-    ]);
+    ];
 
   #---------------------------------------------------------------------
   # Path
@@ -135,6 +135,7 @@ in {
   };
 
   xdg.configFile = {
+    "nvim/".source = ./nvim;
     "ghostty/".source = ./ghostty;
     "aerospace/".source = ./aerospace;
     "skhd/".source = ./skhd;
@@ -229,10 +230,70 @@ in {
     # settings = xdg.configFile
   };
 
-  # programs.neovim = {
-  #   enable = true;
-  #   # package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  # };
+  programs.neovim = {
+    enable = true;
+    # settings = xdg.configFile
+    plugins = with pkgs.vimPlugins;
+      [
+        # completion
+        blink-cmp
+        mini-snippets
+        # colors
+        mini-hipatterns
+        alabaster-nvim
+        # debugging
+        nvim-dap
+        nvim-dap-virtual-text
+        # lsp
+        conform-nvim
+        easy-dotnet-nvim
+        # tree-sitter
+        nvim-treesitter
+        nvim-treesitter-context
+        nvim-treesitter-textobjects
+        # diagnostics
+        trouble-nvim
+        # misc
+        oil-nvim
+        mini-pick
+        mini-pairs
+        mini-surround
+        mini-git
+        mini-diff
+        which-key-nvim
+        vim-slime
+      ]
+      ++ (with nvim-treesitter-parsers; [
+        c
+        cpp
+        zig
+        go
+        lua
+        python
+        rust
+        c_sharp
+        fsharp
+        haskell
+        elixir
+        nu
+        typst
+      ])
+      ++ lib.optionals isDarwin [
+        vim-macos-ime
+      ];
+    extraPackages = with pkgs; [
+      tree-sitter
+      alejandra
+      lua-language-server
+      pyright
+      tinymist
+      roslyn-ls
+      fsautocomplete
+      fantomas
+      zls
+      nufmt
+    ];
+  };
 
   programs.ghostty = {
     enable = true;
