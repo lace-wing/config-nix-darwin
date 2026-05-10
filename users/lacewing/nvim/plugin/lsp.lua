@@ -33,7 +33,7 @@ vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 require('origami').setup({
   autoFold = {
     enabled = true,
-    kinds = { "imports", "region" }, ---@type lsp.FoldingRangeKind[]
+    kinds = { "imports" }, ---@type lsp.FoldingRangeKind[]
   },
 })
 
