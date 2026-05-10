@@ -103,7 +103,7 @@ in {
   # Env vars and dotfiles
   #---------------------------------------------------------------------
 
-  home.sessionVariables =
+  home.sessionVariables = with config.home.sessionVariables;
     {
       LANG = "en_US.UTF-8";
       LC_CTYPE = "en_US.UTF-8";
@@ -115,22 +115,18 @@ in {
       MANPAGER = "nvim +Man!";
 
       NIX_CONFIG_DIR = "${config.xdg.configHome}/system";
-      ZSH_CONFIG_DIR = "${config.home.sessionVariables.NIX_CONFIG_DIR}/users/${user}/zsh";
-      NVIM_CONFIG_DIR = "${config.home.sessionVariables.NIX_CONFIG_DIR}/users/${user}/nvim";
+      ZSH_CONFIG_DIR = "${NIX_CONFIG_DIR}/users/${user}/zsh";
+      NVIM_CONFIG_DIR = "${NIX_CONFIG_DIR}/users/${user}/nvim";
 
       X_SRC_DIR = "$HOME/src";
       Y_SRC_DIR = "$HOME/srcy";
 
-      UNI_DIR = "${config.home.sessionVariables.Y_SRC_DIR}/study";
+      UNI_DIR = "${Y_SRC_DIR}/study";
     }
-    // (
-      if isDarwin
-      then {
-        # See: https://github.com/NixOS/nixpkgs/issues/390751
-        DISPLAY = "nixpkgs-390751";
-      }
-      else {}
-    );
+    // lib.optionals isDarwin {
+      # See: https://github.com/NixOS/nixpkgs/issues/390751
+      DISPLAY = "nixpkgs-390751";
+    };
 
   home.file = {
   };
@@ -348,7 +344,7 @@ in {
       human = "tldr_fzf_preview";
 
       cd = "z";
-      cdgt = "cd_git_top";
+      cdd = "cd_git_top";
 
       v = "${EDITOR}";
       vv = "fzf_editor";
