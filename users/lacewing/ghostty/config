@@ -1,6 +1,9 @@
-# The syntax is "key = value". The whitespace around the equals doesn't matter.
-
 keybind = global:cmd+shift+s=toggle_quick_terminal
+
+macos-titlebar-style = hidden
+
+# alt fix
+macos-option-as-alt = left
 
 font-family = MonaspiceAr NF
 font-family-bold = MonaspiceNe NF
@@ -9,24 +12,19 @@ font-family-bold-italic = MonaspiceXe NF
 
 font-size = 16
 
-# neat dark
+### neat dark ###
 # theme = Nvim Dark
 
-# dark dim green-earth
+### dark dim green-earth ###
 # theme = Black Metal (Nile)
 # cursor-color = #777755
 
-# vibrant earthy
+### vibrant earthy ###
 # theme = Arthur
 
-# custom
+### purple-peach ###
 theme = Hanekawa
 
-macos-titlebar-style = hidden
-
-background-opacity = 0.6
+background-opacity = 0.67
 background-blur-radius = 0
-
-# alt fix
-macos-option-as-alt = left
 
