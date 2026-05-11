@@ -25,6 +25,7 @@ in {
   imports = [
     ./neovim.nix
     ./starship.nix
+    ./zellij.nix
   ];
 
   _module.args = {inherit user isDarwin isLinux isWSL;};
@@ -38,7 +39,6 @@ in {
   home.packages = with pkgs;
     [
       ### Lang ###
-      nixd
       clang-tools
       python314
       typst

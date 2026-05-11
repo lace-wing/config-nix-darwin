@@ -48,9 +48,12 @@ in {
             fsharp
             haskell
             elixir
+            eex
+            heex
             nu
             typst
             objdump
+            html
           ]))
         nvim-treesitter-context
         nvim-treesitter-textobjects
@@ -78,6 +81,8 @@ in {
       roslyn-ls
       fsautocomplete
       fantomas
+      nixd
+      elixir-ls
       zls
       nufmt
     ];

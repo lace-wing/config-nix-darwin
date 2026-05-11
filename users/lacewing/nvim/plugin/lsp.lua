@@ -5,6 +5,8 @@ vim.diagnostic.config({
   virtual_lines = true,
 })
 
+vim.lsp.inlay_hint.enable()
+
 vim.lsp.enable({
   'clangd',
   'lua_ls',
@@ -13,6 +15,7 @@ vim.lsp.enable({
   'easy_dotnet',
   'fsautocomplete',
   'nixd',
+  'elixirls',
   'zls',
   'nu',
 })
@@ -30,11 +33,11 @@ conform.setup({
 })
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
+map('n', '<LEADER>l', conform.format, { desc = 'Format' })
+
 require('origami').setup({
   autoFold = {
     enabled = true,
     kinds = { "imports" }, ---@type lsp.FoldingRangeKind[]
   },
 })
-
-map('n', '<LEADER>l', conform.format, { desc = 'Format' })
