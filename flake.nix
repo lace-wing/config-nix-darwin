@@ -62,6 +62,21 @@
     overlays = with inputs; [
       (final: prev: {
         zjstatus = zjstatus.packages.${prev.pkgs.stdenv.hostPlatform.system}.default;
+
+        aptos-font = prev.pkgs.stdenvNoCC.mkDerivation {
+          pname = "aptos-font";
+          version = "4.4.0";
+          src = prev.pkgs.fetchzip {
+            url = "https://download.microsoft.com/download/8/6/0/860a94fa-7feb-44ef-ac79-c072d9113d69/Microsoft%20Aptos%20Fonts.zip";
+            name = "microsoft-aptos-fonts.zip";
+            sha256 = "sha256-jkYOP5upe+zMnuQtDLCAcaG1ocbx1iHm1ygW9pqGTig=";
+            stripRoot = false;
+          };
+          installPhase = ''
+            mkdir -p $out/share/fonts/truetype
+            find . -name "*.ttf" -exec cp {} $out/share/fonts/truetype/ \;
+          '';
+        };
       })
     ];
   in {
