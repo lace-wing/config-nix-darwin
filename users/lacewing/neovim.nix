@@ -21,20 +21,22 @@ in {
 
     plugins = with pkgs.vimPlugins;
       [
-        # completion
+        ## completion ##
         blink-cmp
         mini-snippets
-        # colors
+        ## colors ##
         mini-hipatterns
         alabaster-nvim
-        # debugging
+        ## debugging ##
         nvim-dap
         nvim-dap-virtual-text
-        # lsp
+        ## lsp ##
         conform-nvim
         nvim-origami
         easy-dotnet-nvim
-        # tree-sitter
+        # includes ts parser & queries
+        orgmode
+        ## tree-sitter ##
         (nvim-treesitter.withPlugins (p:
           with p; [
             c
@@ -57,9 +59,9 @@ in {
           ]))
         nvim-treesitter-context
         nvim-treesitter-textobjects
-        # diagnostics
+        ## diagnostics ##
         trouble-nvim
-        # misc
+        ## misc ##
         oil-nvim
         mini-pick
         mini-pairs

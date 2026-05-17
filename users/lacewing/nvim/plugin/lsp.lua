@@ -18,6 +18,12 @@ vim.lsp.enable({
   'elixirls',
   'zls',
   'nu',
+  'org'
+})
+
+require('orgmode').setup({
+  org_agenda_files = '~/org/**/*',
+  org_default_notes_file = '~/org/refile.org',
 })
 
 local conform = require('conform')
