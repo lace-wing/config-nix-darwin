@@ -12,6 +12,18 @@
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
 
+  fontPackages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-serif-static
+    noto-fonts-cjk-sans-static
+    crimson-pro
+    iosevka
+    nerd-fonts.monaspace
+    nerd-fonts.iosevka-term
+    fira-mono
+    aptos-fonts
+  ];
+
   shFunctions = builtins.readFile ./../../mods/sh/functions.sh;
   nuFunctions = builtins.readFile ./../../mods/nu/functions.nu;
 
@@ -74,6 +86,7 @@ in {
 
       ### GUI App ###
     ]
+    ++ fontPackages
     ++ [
       initApp
     ]
@@ -96,8 +109,22 @@ in {
   ];
 
   #---------------------------------------------------------------------
-  # Env vars and dotfiles
+  # Env and config files
   #---------------------------------------------------------------------
+
+  fonts.fontconfig = {
+    enable = true;
+
+    # packages in fontPkgs
+    defaultFonts = {
+      serif = ["Noto Serif"];
+      sansSerif = ["Noto Sans"];
+      monospace = [
+        "Monaspace NFM"
+        "Iosevka NFM"
+      ];
+    };
+  };
 
   home.sessionVariables = with config.home.sessionVariables;
     {
