@@ -10,8 +10,15 @@ layout {
 
   tab name="biol-111" cwd="biol-111" {
     pane stacked=true {
-      pane name="note" command="$EDITOR" start_suspended=true { args "biol-111.typ"; }
+      pane name="note" command="$EDITOR" start_suspended=true { args "main.typ"; }
       // pane name="homework" cwd="$Y_SRC_DIR/biol-111"
+    }
+  }
+
+  tab name="apsc-262" cwd="apsc-262" {
+    pane stacked=true {
+      pane name="note" command="$EDITOR" start_suspended=true { args "main.typ"; }
+      pane name="homework"
     }
   }
 }
