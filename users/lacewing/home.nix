@@ -26,11 +26,6 @@
 
   shFunctions = builtins.readFile ./../../mods/sh/functions.sh;
   nuFunctions = builtins.readFile ./../../mods/nu/functions.nu;
-
-  initApp = pkgs.writeShellApplication {
-    name = "init";
-    text = builtins.readFile ./../../mods/init/init.sh;
-  };
 in {
   home.stateVersion = "26.05";
 
@@ -53,10 +48,6 @@ in {
       ### Lang ###
       clang-tools
       typst
-      dotnet-sdk
-      zig
-      go
-      cargo
 
       ### Lib ###
       man-pages
@@ -67,9 +58,7 @@ in {
       fd
       fzf
       gh
-      htop
       jq
-      yq
       ripgrep
       tree
       flamegraph
@@ -77,24 +66,19 @@ in {
       exiftool
       imagemagick
       poppler-utils
+      sioyek
       pdfpc
       mpv
       fastfetch
       giac
-
-      ### GUI App ###
     ]
     ++ fontPackages
-    ++ [
-      initApp
-    ]
     ++ lib.optionals isDarwin [
       # This is automatically setup on Linux
       gettext
       macism
     ]
     ++ lib.optionals (isLinux && !isWSL) [
-      clang
       valgrind
     ];
 
